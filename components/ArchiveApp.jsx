@@ -4,7 +4,7 @@ import { flushSync } from 'react-dom';
 import { PERFUMES, BY_ID, FIVE_STAR, BRANDS, BRAND_BY_SLUG, BRAND_BY_NAME, YEARS, SCENTS, DECADES, selectPerfumes, paginate, archiveUrl, randomBottle } from '../lib/library-model.mjs';
 import { Router, Link, Arrow, SearchIcon } from '../lib/navigation';
 import { useMotionProfile } from '../lib/motion.mjs';
-import { Vitrine, FloatingBottle, Rating, hasCutout, hasPhoto, isTiny, objectNo, toneFor } from './library-primitives';
+import { Vitrine, Rating, hasCutout, hasPhoto, isTiny, objectNo } from './library-primitives';
 import { Entrance } from './world-scenes';
 export { Vitrine as PerfumeImage } from './library-primitives';
 
@@ -19,14 +19,14 @@ function locationValue() { return typeof window === 'undefined' ? '/' : window.l
 // ---------------------------------------------------------------- cards ----
 export function PerfumeCard({ perfume: p, eager = false }) {
   const { focusId } = useContext(Router);
-  return <article className={`card ${p.personalRating === 5 ? 'is-five' : ''}`} data-record={p.id}>
+  return <article className="card" data-record={p.id}>
     <Link href={`/perfume/${p.id}`}>
-      <span className="card-media"><Vitrine perfume={p} eager={eager} focusId={focusId} shared /><span className="card-no">{objectNo(p)}</span></span>
+      <span className="card-media"><Vitrine perfume={p} eager={eager} focusId={focusId} shared /></span>
       <span className="card-caption">
         <span className="card-brand">{p.brand}</span>
         <span className="card-name">{p.nameChinese}</span>
         <span className="card-en" lang="en">{p.nameEnglish}</span>
-        <span className="card-meta"><span>{p.releaseYear || '年份待核实'}</span><Rating value={p.personalRating} label={false} /></span>
+        <span className="card-meta"><span>{p.releaseYear || '年份待核实'}</span><Rating value={p.personalRating} /></span>
       </span>
     </Link>
   </article>;
@@ -48,12 +48,12 @@ export function Shelf({ items, label, limit }) {
       onClickCapture={e => { if (drag.current?.moved) { e.preventDefault(); e.stopPropagation(); } }}>
       {visible.map((p, i) => <div className="shelf-item" key={p.id}><PerfumeCard perfume={p} eager={i < 3} /></div>)}
     </div>
-    {visible.length > 2 && <div className="shelf-controls"><span>拖动或滑动</span><div><button aria-label="向左" onClick={() => by(-1)}><Arrow back /></button><button aria-label="向右" onClick={() => by(1)}><Arrow /></button></div></div>}
+    {visible.length > 4 && <div className="shelf-controls"><div><button aria-label="向左" onClick={() => by(-1)}><Arrow back /></button><button aria-label="向右" onClick={() => by(1)}><Arrow /></button></div></div>}
   </div>;
 }
 
 // --------------------------------------------------------------- chrome ----
-const NAV = [['/', '漫游'], ['/archive', '全部馆藏'], ['/brands', '品牌'], ['/timeline', '年代'], ['/scents', '香调'], ['/five-star', '五星']];
+const NAV = [['/', '首页'], ['/archive', '全部馆藏'], ['/brands', '品牌'], ['/timeline', '年代'], ['/scents', '香调'], ['/five-star', '五星']];
 function Header({ route }) {
   const [open, setOpen] = useState(false), [scrolled, setScrolled] = useState(false);
   const menuRef = useRef(null);
@@ -67,39 +67,35 @@ function Header({ route }) {
   }, [open]);
   const active = href => href === '/' ? route === '/' || route === '/explore' : href === '/archive' ? route === '/archive' || route === '/all' : href === '/brands' ? route === '/brands' || route.startsWith('/brand/') : route === href;
   return <header className={`site-header ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
-    <Link className="wordmark" href="/" aria-label="私藏香水世界 首页"><span className="wordmark-zh">私藏香水世界</span><span className="wordmark-en">Private Scent Library</span></Link>
+    <Link className="wordmark" href="/" aria-label="私藏香水世界 首页"><span className="wordmark-zh">私藏香水世界</span></Link>
     <nav className="nav" aria-label="主导航">{NAV.slice(1).map(([href, zh]) => <Link key={href} href={href} className={active(href) ? 'is-active' : ''} aria-current={active(href) ? 'page' : undefined}>{zh}</Link>)}</nav>
     <div className="header-actions">
       <Link href="/search" className="search-link" aria-label="检索馆藏"><SearchIcon /><span>检索</span></Link>
       <button ref={menuRef} className="menu-button" aria-label={open ? '关闭导航' : '打开导航'} aria-expanded={open} aria-controls="menu-panel" onClick={() => setOpen(!open)}><span /><span /></button>
     </div>
     <nav className="menu-panel" id="menu-panel" aria-label="手机导航" hidden={!open}>
-      {NAV.map(([href, zh], i) => <Link key={href} href={href} className={active(href) ? 'is-active' : ''} style={{ '--d': i }}><span className="menu-no">0{i + 1}</span><span className="menu-zh">{zh}</span></Link>)}
-      <Link href="/search" style={{ '--d': NAV.length }}><span className="menu-no">0{NAV.length + 1}</span><span className="menu-zh">检索</span></Link>
+      {NAV.map(([href, zh]) => <Link key={href} href={href} className={active(href) ? 'is-active' : ''}>{zh}</Link>)}
+      <Link href="/search">检索</Link>
     </nav>
   </header>;
 }
 function Footer() {
   return <footer className="site-footer">
-    <div className="footer-mark"><span className="footer-zh">私藏香水世界</span><span className="footer-en">Private Scent Library</span></div>
-    <nav className="footer-links" aria-label="页脚导航">{NAV.map(([href, zh]) => <Link key={href} href={href}>{zh}</Link>)}<Link href="/about">关于</Link></nav>
-    <p className="footer-note">{fmt(TOTAL)} 件馆藏 · {BRANDS.length} 个品牌 · 评分皆为个人判断</p>
-    <a className="footer-top" href="#main">回到顶部 <span aria-hidden="true">↑</span></a>
+    <p className="footer-note">私藏香水世界 · {fmt(TOTAL)} 款 · {BRANDS.length} 个品牌 · 评分为个人主观评价</p>
+    <nav className="footer-links" aria-label="页脚导航">{NAV.slice(1).map(([href, zh]) => <Link key={href} href={href}>{zh}</Link>)}<Link href="/about">关于</Link><a href="#main">回到顶部</a></nav>
   </footer>;
 }
-function PageHero({ eyebrow, title, ghost, children, className = '' }) {
+function PageHero({ title, children, className = '' }) {
   return <header className={`page-hero ${className}`}>
-    {ghost && <span className="page-ghost" aria-hidden="true">{ghost}</span>}
-    <p className="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>
-    {children && <div className="page-hero-aside">{children}</div>}
+    {children && <div className="page-hero-meta">{children}</div>}
   </header>;
 }
 function Pagination({ page, pages, total, onPage }) {
   if (total === 0 || pages < 2) return null;
   const nums = [1, ...Array.from({ length: 5 }, (_, i) => page - 2 + i).filter(n => n > 1 && n < pages), pages].filter((n, i, a) => a.indexOf(n) === i);
   return <nav className="pagination" aria-label="分页">
-    <span className="pagination-info">第 {page} / {pages} 页 <span className="muted">· {fmt(total)} 件</span></span>
+    <span className="pagination-info">第 {page} / {pages} 页，共 {fmt(total)} 款</span>
     <div>
       <button aria-label="上一页" disabled={page === 1} onClick={() => onPage(page - 1)}><Arrow back /></button>
       {nums.map((n, i) => <React.Fragment key={n}>{i > 0 && n > nums[i - 1] + 1 && <span className="page-gap">…</span>}<button className={n === page ? 'is-current' : ''} aria-label={`第 ${n} 页`} aria-current={n === page ? 'page' : undefined} onClick={() => onPage(n)}>{n}</button></React.Fragment>)}
@@ -107,8 +103,8 @@ function Pagination({ page, pages, total, onPage }) {
     </div>
   </nav>;
 }
-function Empty({ reset }) { return <div className="empty"><p className="empty-mark" aria-hidden="true">∅</p><h2>还没有找到这瓶香水</h2><p>试试另一个名称，或减少筛选条件。</p><button className="button-ghost" onClick={reset}>清除筛选</button></div>; }
-function ViewToggle({ value, onChange }) { return <div className="view-toggle" role="group" aria-label="浏览方式"><button aria-pressed={value === 'grid'} onClick={() => onChange('grid')}>网格</button><button aria-pressed={value === 'shelf'} onClick={() => onChange('shelf')}>陈列架</button></div>; }
+function Empty({ reset }) { return <div className="empty"><p>没有符合条件的香水。</p><button className="button-ghost" onClick={reset}>清除筛选</button></div>; }
+function ViewToggle({ value, onChange }) { return <div className="view-toggle" role="group" aria-label="浏览方式"><button aria-pressed={value === 'grid'} onClick={() => onChange('grid')}>网格</button><button aria-pressed={value === 'shelf'} onClick={() => onChange('shelf')}>横排</button></div>; }
 
 // -------------------------------------------------------------- archive ----
 function BrandHero({ brand }) {
@@ -116,21 +112,21 @@ function BrandHero({ brand }) {
   const five = brand.items.filter(p => p.personalRating === 5).length;
   const ranked = [...brand.items].sort((a, b) => b.personalRating - a.personalRating);
   const lead = ranked.find(p => hasCutout(p) && hasPhoto(p)) || ranked.find(hasPhoto) || ranked.find(isTiny);
-  const display = brand.english || brand.name;
-  return <header className="page-hero brand-hero" style={{ '--tone': toneFor(lead || brand.items[0]) }}>
-    <span className={`brand-ghost ${display.length > 14 ? 'is-long' : ''}`} aria-hidden="true">{display}</span>
-    <p className="eyebrow">品牌书架 · 第 {brand.index + 1} / {BRANDS.length} 座</p>
-    <h1>{brand.name}</h1>
-    {brand.english && brand.english !== brand.name && <p className="brand-en" lang="en">{brand.english}</p>}
-    <dl className="brand-facts">
-      <div><dt>馆藏</dt><dd>{brand.items.length}<small>件</small></dd></div>
-      {years.length > 0 && <div><dt>年份</dt><dd>{Math.min(...years) === Math.max(...years) ? Math.min(...years) : `${Math.min(...years)}—${Math.max(...years)}`}</dd></div>}
-      <div><dt>五星</dt><dd>{five}<small>瓶</small></dd></div>
-    </dl>
-    {lead && <div className="brand-hero-bottle" aria-hidden="true"><i className="bottle-light" /><i className="bottle-shadow" /><FloatingBottle perfume={lead} eager /></div>}
+  return <header className="page-hero brand-hero">
+    <div>
+      <p className="crumb"><Link href="/brands">品牌</Link></p>
+      <h1>{brand.name}</h1>
+      {brand.english && brand.english !== brand.name && <p className="brand-en" lang="en">{brand.english}</p>}
+      <dl className="facts">
+        <div><dt>收藏</dt><dd>{brand.items.length} 款</dd></div>
+        {years.length > 0 && <div><dt>发行年份</dt><dd>{Math.min(...years) === Math.max(...years) ? Math.min(...years) : `${Math.min(...years)}–${Math.max(...years)}`}</dd></div>}
+        <div><dt>五星</dt><dd>{five} 款</dd></div>
+      </dl>
+    </div>
+    {lead && <div className="brand-hero-bottle" aria-hidden="true"><Vitrine perfume={lead} size="stage" eager /></div>}
   </header>;
 }
-export function Archive({ params, path = '/archive', search = false, baseItems = PERFUMES, title = '全部馆藏', en = '完整索引', brand = null }) {
+export function Archive({ params, path = '/archive', search = false, baseItems = PERFUMES, title = '全部馆藏', brand = null }) {
   const { navigate } = useContext(Router);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const items = useMemo(() => selectPerfumes(params, baseItems), [params.toString(), baseItems]);
@@ -147,9 +143,9 @@ export function Archive({ params, path = '/archive', search = false, baseItems =
   const label = k => k === 'rating' ? `${params.get(k)} / 5` : k === 'decade' ? `${params.get(k)} 年代` : params.get(k) === 'unknown' ? '年份待核实' : params.get(k);
   const next = brand && BRANDS[(brand.index + 1) % BRANDS.length];
   return <div className={`page archive-page ${brand ? 'is-brand' : ''}`}>
-    {brand ? <BrandHero brand={brand} /> : <PageHero eyebrow={en} title={title} ghost={search ? '?' : fmt(baseItems.length)}><p>{search ? '名称、品牌、气味，输入即检索。' : `${fmt(baseItems.length)} 件馆藏，按原始顺序排列，也可以任意筛选。`}</p></PageHero>}
+    {brand ? <BrandHero brand={brand} /> : <PageHero title={title}><p>{search ? '按中文名、英文名、品牌或香调检索。' : `共 ${fmt(baseItems.length)} 款，默认按收录顺序排列。`}</p></PageHero>}
     <div className="toolbar">
-      <label className="search-field"><SearchIcon /><input autoFocus={search} type="search" value={params.get('query') || ''} onChange={e => update({ query: e.target.value })} placeholder={brand ? `在 ${brand.name} 中搜索` : '搜索名称、品牌或气味'} aria-label="搜索名称、品牌或气味" />{params.get('query') && <button onClick={() => update({ query: '' })} aria-label="清除搜索">×</button>}</label>
+      <label className="search-field"><SearchIcon /><input autoFocus={search} type="search" value={params.get('query') || ''} onChange={e => update({ query: e.target.value })} placeholder={brand ? `在 ${brand.name} 中搜索` : '搜索名称、品牌或香调'} aria-label="搜索名称、品牌或气味" />{params.get('query') && <button onClick={() => update({ query: '' })} aria-label="清除搜索">×</button>}</label>
       <div className="toolbar-actions">
         <button className="filter-toggle" aria-expanded={filtersOpen} aria-controls="filters" onClick={() => setFiltersOpen(!filtersOpen)}>筛选{filters.length > 0 && <span className="count-badge">{filters.length}</span>}<span aria-hidden="true">{filtersOpen ? '−' : '+'}</span></button>
         <ViewToggle value={view} onChange={v => update({ view: v })} />
@@ -160,15 +156,15 @@ export function Archive({ params, path = '/archive', search = false, baseItems =
       <label>发行年份<select value={params.get('year') || ''} onChange={e => update({ year: e.target.value, decade: '' })}><option value="">所有年份</option>{YEARS.map(y => <option key={y}>{y}</option>)}<option value="unknown">待核实</option></select></label>
       <label>个人评分<select value={params.get('rating') || ''} onChange={e => update({ rating: e.target.value })}><option value="">所有评分</option>{[5, 4, 3, 2, 1].map(n => <option value={n} key={n}>{n} / 5</option>)}</select></label>
       <label>香调<select value={params.get('scent') || ''} onChange={e => update({ scent: e.target.value })}><option value="">所有香调</option>{SCENTS.map(s => <option key={s}>{s}</option>)}</select></label>
-      <label>排序<select value={params.get('sort') || ''} onChange={e => update({ sort: e.target.value })}><option value="">原始顺序</option><option value="name">名称 A–Z</option><option value="year-desc">年份 · 从近到远</option><option value="year-asc">年份 · 从远到近</option><option value="rating-desc">评分 · 从高到低</option><option value="rating-asc">评分 · 从低到高</option></select></label>
+      <label>排序<select value={params.get('sort') || ''} onChange={e => update({ sort: e.target.value })}><option value="">收录顺序</option><option value="name">名称 A–Z</option><option value="year-desc">年份 · 从近到远</option><option value="year-asc">年份 · 从远到近</option><option value="rating-desc">评分 · 从高到低</option><option value="rating-asc">评分 · 从低到高</option></select></label>
     </div>
     <div className="results-bar">
-      <p aria-live="polite"><strong>{fmt(items.length)}</strong> 件馆藏{(filters.length > 0 || params.get('query')) && <button className="reset-link" onClick={() => navigate(path, { replace: true, keepScroll: true, transition: false })}>清除筛选 ×</button>}</p>
+      <p aria-live="polite">{fmt(items.length)} 款{(filters.length > 0 || params.get('query')) && <button className="reset-link" onClick={() => navigate(path, { replace: true, keepScroll: true, transition: false })}>清除筛选 ×</button>}</p>
       {filters.length > 0 && <div className="chips">{filters.map(k => <button key={k} onClick={() => update({ [k]: '' })}>{label(k)} <span aria-hidden="true">×</span></button>)}</div>}
     </div>
-    {items.length === 0 ? <Empty reset={() => navigate(path, { replace: true, transition: false })} /> : view === 'grid' ? <Grid items={pagination.items} /> : <Shelf items={pagination.items} label="本页陈列架" />}
+    {items.length === 0 ? <Empty reset={() => navigate(path, { replace: true, transition: false })} /> : view === 'grid' ? <Grid items={pagination.items} /> : <Shelf items={pagination.items} label="本页香水" />}
     <Pagination page={pagination.page} pages={pagination.pages} total={items.length} onPage={turnPage} />
-    {next && <Link className="next-room" href={`/brand/${next.slug}`}><span className="eyebrow">下一座书架</span><span className="next-room-name">{next.english || next.name}</span><span className="next-room-meta">{next.name} · {next.items.length} 件<Arrow /></span></Link>}
+    {next && <p className="next-link">下一个品牌：<Link href={`/brand/${next.slug}`}>{next.name}{next.english && next.english !== next.name ? ` ${next.english}` : ''}（{next.items.length} 款）</Link></p>}
   </div>;
 }
 
@@ -180,18 +176,18 @@ export function Brands({ params }) {
   const [hover, setHover] = useState(null);
   const update = (key, value) => { const next = new URLSearchParams(params); value ? next.set(key, value) : next.delete(key); navigate('/brands' + (next.size ? '?' + next : ''), { replace: true, keepScroll: true, transition: false }); };
   const brands = BRANDS.filter(b => `${b.name} ${b.english} ${b.sortName}`.toLowerCase().includes(query.toLowerCase())).sort((a, b) => sort === 'count' ? b.items.length - a.items.length : sort === 'original' ? a.index - b.index : a.sortName.localeCompare(b.sortName));
-  const groups = sort === 'az' ? [...new Set(brands.map(b => b.letter))].sort().map(letter => ({ letter, items: brands.filter(b => b.letter === letter) })) : [{ letter: sort === 'count' ? '按数量' : '原始顺序', items: brands }];
+  const groups = sort === 'az' ? [...new Set(brands.map(b => b.letter))].sort().map(letter => ({ letter, items: brands.filter(b => b.letter === letter) })) : [{ letter: sort === 'count' ? '按数量' : '收录顺序', items: brands }];
   const move = e => { if (peek.current) peek.current.style.transform = `translate3d(${e.clientX + 28}px,${e.clientY - 120}px,0)`; };
   const peekItems = hover ? [...hover.items].filter(hasPhoto).sort((a, b) => b.personalRating - a.personalRating).slice(0, 3) : [];
   return <div className="page brands-page" onPointerMove={move}>
-    <PageHero eyebrow="品牌索引" title="品牌书架" ghost={String(BRANDS.length)}><p>{BRANDS.length} 个品牌，{fmt(TOTAL)} 件馆藏。每一个名字，都是一座书架。</p></PageHero>
+    <PageHero title="品牌"><p>{BRANDS.length} 个品牌，按英文首字母排列。</p></PageHero>
     <div className="toolbar">
-      <label className="search-field"><SearchIcon /><input type="search" aria-label="搜索品牌" placeholder="寻找一个品牌" value={query} onChange={e => update('query', e.target.value)} /></label>
-      <label className="inline-select">排列<select value={sort} onChange={e => update('sort', e.target.value)}><option value="az">A–Z</option><option value="count">馆藏数量</option><option value="original">原始顺序</option></select></label>
+      <label className="search-field"><SearchIcon /><input type="search" aria-label="搜索品牌" placeholder="搜索品牌" value={query} onChange={e => update('query', e.target.value)} /></label>
+      <label className="inline-select">排列<select value={sort} onChange={e => update('sort', e.target.value)}><option value="az">A–Z</option><option value="count">馆藏数量</option><option value="original">收录顺序</option></select></label>
     </div>
     {sort === 'az' && <nav className="alphabet" aria-label="品牌首字母">{groups.map(g => <a key={g.letter} href={`#letter-${g.letter}`} onClick={e => { e.preventDefault(); document.getElementById(`letter-${g.letter}`)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }}>{g.letter}</a>)}</nav>}
     {groups.map(g => <section className="brand-group" key={g.letter} id={`letter-${g.letter}`}>
-      <h2 className="brand-letter" data-reveal="">{g.letter}</h2>
+      <h2 className="brand-letter">{g.letter}</h2>
       <ul className="brand-list">{g.items.map(b => <li key={b.slug}><Link className="brand-row" href={`/brand/${b.slug}`} onMouseEnter={() => setHover(b)} onMouseLeave={() => setHover(null)}>
         <span className="brand-row-name"><strong lang={b.english ? 'en' : undefined}>{b.english || b.name}</strong>{b.english && b.english !== b.name && <small>{b.name}</small>}</span>
         <span className="brand-row-count">{b.items.length}</span>
@@ -200,7 +196,7 @@ export function Brands({ params }) {
     {brands.length === 0 && <Empty reset={() => navigate('/brands', { replace: true, transition: false })} />}
     <div className={`brand-peek ${hover && peekItems.length ? 'is-on' : ''}`} ref={peek} aria-hidden="true">
       {peekItems.map(p => <Vitrine key={p.id} perfume={p} size="thumb" sizes="120px" />)}
-      {hover && <span className="brand-peek-label">{hover.name} · {hover.items.length} 件</span>}
+      
     </div>
   </div>;
 }
@@ -219,26 +215,24 @@ export function Timeline({ params }) {
   const dated = PERFUMES.filter(p => p.releaseYear).length;
   const go = d => roots.current.get(d)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   return <div className="page timeline-page">
-    <PageHero eyebrow="按发行年份" title="时间长廊" ghost={`${DECADES[0]}`}><p>{fmt(dated)} 件有确切年份的馆藏，从 {Math.min(...YEARS)} 到 {Math.max(...YEARS)}。另有 {TOTAL - dated} 件，年份待核实。</p></PageHero>
+    <PageHero title="年代"><p>{fmt(dated)} 款有发行年份（{Math.min(...YEARS)}–{Math.max(...YEARS)}），{TOTAL - dated} 款年份待核实。</p></PageHero>
     <div className="timeline">
       <aside className="timeline-axis" aria-label="年代">
-        <p className="axis-label">正在经过</p>
-        <p className="axis-now" key={active}>{active}<span>年代</span></p>
         <nav>{DECADES.map(d => <button key={d} className={d === active ? 'is-active' : ''} onClick={() => go(d)}>{d}<span>{ERAS.find(e => e.decade === d).items.length}</span></button>)}</nav>
       </aside>
       <div className="eras">
         {ERAS.map(({ decade, items }) => {
           const first = items[0].releaseYear, last = items[items.length - 1].releaseYear;
           return <section id={`decade-${decade}`} data-decade={decade} className="era" key={decade} ref={el => roots.current.set(decade, el)}>
-            <div className="era-head" data-reveal="">
-              <h2>{decade}<span>年代</span></h2>
-              <p>{first === last ? first : `${first} — ${last}`} · {items.length} 件</p>
-              <Link className="text-link" href={archiveUrl({ decade, sort: 'year-asc' })}>这一年代的全部<Arrow /></Link>
+            <div className="era-head">
+              <h2>{decade} 年代</h2>
+              <p>{first === last ? first : `${first}–${last}`}，{items.length} 款</p>
+              <Link className="text-link" href={archiveUrl({ decade, sort: 'year-asc' })}>查看全部<Arrow /></Link>
             </div>
             <Shelf items={items} limit={12} label={`${decade} 年代馆藏`} />
           </section>;
         })}
-        <div className="era-unknown"><p>另有 {TOTAL - dated} 件，年份待核实。</p><Link className="text-link" href={archiveUrl({ year: 'unknown' })}>查看这些馆藏<Arrow /></Link></div>
+        <div className="era-unknown"><p>年份待核实：{TOTAL - dated} 款</p><Link className="text-link" href={archiveUrl({ year: 'unknown' })}>查看<Arrow /></Link></div>
       </div>
     </div>
   </div>;
@@ -249,20 +243,14 @@ export function FiveStar({ params }) {
   const { navigate } = useContext(Router);
   const page = paginate(FIVE_STAR, params.get('page'));
   return <div className="page five-page">
-    <header className="page-hero five-hero">
-      <span className="five-mark" aria-hidden="true">5<small>/5</small></span>
-      <p className="eyebrow">最里面的房间</p>
-      <h1>五星馆藏室</h1>
-      <div className="page-hero-aside"><p>{FIVE_STAR.length} 瓶，我给出满分的那些。<br /><span className="muted">留在心里的气味，留在最里面的房间。</span></p></div>
-    </header>
-    <Grid items={page.items} className="grid-five" />
+    <PageHero title="五星"><p>我评为 5 分的 {FIVE_STAR.length} 款。</p></PageHero>
+    <Grid items={page.items} />
     <Pagination page={page.page} pages={page.pages} total={FIVE_STAR.length} onPage={p => navigate('/five-star?page=' + p)} />
   </div>;
 }
 
 // --------------------------------------------------------------- scents ----
 const SCENT_COUNT = new Map(SCENTS.map(s => [s, PERFUMES.filter(p => p.scents.includes(s)).length]));
-const MAX_SCENT = Math.max(...SCENT_COUNT.values());
 export function Scents({ params }) {
   const { navigate } = useContext(Router);
   const selected = SCENTS.includes(params.get('scent')) ? params.get('scent') : SCENTS[0];
@@ -271,14 +259,14 @@ export function Scents({ params }) {
   const pick = s => navigate('/scents?scent=' + encodeURIComponent(s), { replace: true, keepScroll: true, transition: false });
   const shelf = [...matching].sort((a, b) => b.personalRating - a.personalRating || a.sourceOrder - b.sourceOrder);
   return <div className="page scents-page">
-    <PageHero eyebrow="香调索引" title="香调世界" ghost={String(SCENTS.length)}><p>{SCENTS.length} 种香调词，全部取自馆藏原有介绍。字号越大，出现得越多。</p></PageHero>
-    <div className="scent-cloud" role="group" aria-label="选择一种香调">
-      {SCENTS.map(s => { const c = SCENT_COUNT.get(s); return <button key={s} aria-pressed={s === selected} onClick={() => pick(s)} style={{ '--w': (0.25 + 0.75 * Math.sqrt(c / MAX_SCENT)).toFixed(3) }}>{s}<sup>{c}</sup></button>; })}
+    <PageHero title="香调"><p>{SCENTS.length} 种香调，取自每款香水原有的介绍文字。数字为款数。</p></PageHero>
+    <div className="scent-list" role="group" aria-label="选择香调">
+      {SCENTS.map(s => <button key={s} aria-pressed={s === selected} onClick={() => pick(s)}><span>{s}</span><span className="scent-count">{SCENT_COUNT.get(s)}</span></button>)}
     </div>
     <section className="scent-focus" key={selected}>
-      <div className="scent-word" data-reveal=""><p className="eyebrow">循香而行</p><h2>{selected}</h2><p>{matching.length} 件馆藏含有这一香调</p><Link className="text-link" href={archiveUrl({ scent: selected })}>在全部馆藏中查看<Arrow /></Link></div>
-      <div className="scent-relations" data-reveal="">
-        <p className="relations-head">常与它同行</p>
+      <div className="scent-word"><h2>{selected}</h2><p>{matching.length} 款</p><Link className="text-link" href={archiveUrl({ scent: selected })}>在全部馆藏中查看<Arrow /></Link></div>
+      <div className="scent-relations">
+        <p className="relations-head">同时出现最多的香调</p>
         {related.map(r => <button className="relation" key={r.name} onClick={() => pick(r.name)} style={{ '--r': (r.count / related[0].count).toFixed(3) }}><span className="relation-name">{r.name}</span><span className="relation-bar" aria-hidden="true"><i /></span><span className="relation-count">{r.count}</span></button>)}
       </div>
     </section>
@@ -302,37 +290,23 @@ export function DetailContent({ perfume: p }) {
   const { focusId } = useContext(Router);
   const brand = BRAND_BY_NAME.get(p.brand);
   const notes = parseNotes(p.description);
-  const stage = useRef(null);
-  useEffect(() => {
-    const el = stage.current; if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(hover: none)').matches) return;
-    let frame = 0, x = 0, y = 0;
-    const move = e => { x = e.clientX / innerWidth - .5; y = e.clientY / innerHeight - .5; if (!frame) frame = requestAnimationFrame(() => { frame = 0; el.style.setProperty('--mx', x.toFixed(3)); el.style.setProperty('--my', y.toFixed(3)); }); };
-    window.addEventListener('pointermove', move, { passive: true }); return () => { window.removeEventListener('pointermove', move); cancelAnimationFrame(frame); };
-  }, []);
-  return <section className="chamber" style={{ '--tone': toneFor(p) }} aria-label={`${p.brand} ${p.nameChinese}`}>
-    <div className="chamber-stage" ref={stage}>
-      <span className="chamber-cone" aria-hidden="true" />
-      <span className="chamber-no" aria-hidden="true">{objectNo(p)}</span>
-      <div className="chamber-object">
-        <i className="bottle-shadow" aria-hidden="true" /><Vitrine perfume={p} size="stage" eager focusId={focusId} shared />
-      </div>
+  return <section className="product" aria-label={`${p.brand} ${p.nameChinese}`}>
+    <div className="product-media">
+      <Vitrine perfume={p} size="stage" eager focusId={focusId} shared />
     </div>
-    <div className="chamber-copy">
-      <p className="chamber-index">馆藏编号 {objectNo(p)} <span>/ {fmt(TOTAL)}</span></p>
-      <Link className="chamber-brand" href={`/brand/${brand.slug}`}>{p.brand}{brand.english && brand.english !== p.brand && <span lang="en"> · {brand.english}</span>}</Link>
+    <div className="product-copy">
+      <Link className="product-brand" href={`/brand/${brand.slug}`}>{p.brand}{brand.english && brand.english !== p.brand && <span lang="en"> {brand.english}</span>}</Link>
       <h1>{p.nameChinese}</h1>
-      <p className="chamber-en" lang="en">{p.nameEnglish}</p>
-      <dl className="chamber-facts">
-        <div><dt>发行</dt><dd>{p.releaseYear ? <Link href={archiveUrl({ year: p.releaseYear })}>{p.releaseYear}</Link> : <span className="muted">待核实</span>}</dd></div>
+      <p className="product-en" lang="en">{p.nameEnglish}</p>
+      <dl className="spec">
+        <div><dt>发行年份</dt><dd>{p.releaseYear ? <Link href={archiveUrl({ year: p.releaseYear })}>{p.releaseYear}</Link> : '待核实'}</dd></div>
         <div><dt>我的评分</dt><dd><Rating value={p.personalRating} /></dd></div>
+        {(p.scents.length > 0 || notes.accord) && <div><dt>香调</dt><dd>{p.scents.length ? p.scents.map((s, i) => <React.Fragment key={s}>{i > 0 && '、'}<Link href={`/scents?scent=${encodeURIComponent(s)}`}>{s}</Link></React.Fragment>) : notes.accord}</dd></div>}
+        {notes.rows.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+        {notes.rest.length > 0 && <div><dt>备注</dt><dd>{notes.rest.join('；')}</dd></div>}
+        {!notes.accord && notes.rows.length === 0 && notes.rest.length === 0 && p.description && <div><dt>介绍</dt><dd>{p.description}</dd></div>}
+        <div><dt>收录编号</dt><dd>{objectNo(p)}</dd></div>
       </dl>
-      {(notes.accord || p.scents.length > 0) && <div className="chamber-accord">
-        <p className="label">香调轮廓</p>
-        <p className="accord-line">{p.scents.length ? p.scents.map((s, i) => <React.Fragment key={s}>{i > 0 && <span className="sep" aria-hidden="true"> · </span>}<Link href={`/scents?scent=${encodeURIComponent(s)}`}>{s}</Link></React.Fragment>) : notes.accord}</p>
-      </div>}
-      {notes.rows.length > 0 && <dl className="notes">{notes.rows.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
-      {notes.rest.length > 0 && <p className="chamber-text">{notes.rest.join('；')}。</p>}
-      {!notes.accord && notes.rows.length === 0 && notes.rest.length === 0 && p.description && <p className="chamber-text">{p.description}</p>}
     </div>
   </section>;
 }
@@ -353,68 +327,48 @@ function Detail({ id }) {
   const sameRating = PERFUMES.filter(x => x.id !== id && x.personalRating === p.personalRating);
   const topScent = p.scents[0];
   const sameScent = topScent ? PERFUMES.filter(x => x.id !== id && x.scents.includes(topScent)) : [];
-  const hintFor = list => [...list].filter(hasPhoto).sort((a, b) => b.personalRating - a.personalRating).find(x => x.brand !== p.brand) || list.find(hasPhoto) || list[0] || null;
   const exits = [
-    { label: '同一品牌', name: p.brand, href: `/brand/${brand.slug}`, list: sameBrand },
+    { label: '同品牌', name: p.brand, href: `/brand/${brand.slug}`, list: sameBrand },
     ...(p.releaseYear ? [{ label: '同一年', name: String(p.releaseYear), href: archiveUrl({ year: p.releaseYear }), list: sameYear }] : []),
-    { label: '同样的评分', name: `${p.personalRating} / 5`, href: archiveUrl({ rating: p.personalRating }), list: sameRating },
-    ...(topScent ? [{ label: '同一香调', name: topScent, href: `/scents?scent=${encodeURIComponent(topScent)}`, list: sameScent }] : []),
+    { label: '同评分', name: `${p.personalRating}/5`, href: archiveUrl({ rating: p.personalRating }), list: sameRating },
+    ...(topScent ? [{ label: '同香调', name: topScent, href: `/scents?scent=${encodeURIComponent(topScent)}`, list: sameScent }] : []),
   ].filter(e => e.list.length > 0);
   return <div className="page detail-page">
     <div className="detail-nav">
       <button className="text-link" onClick={back}><Arrow back />返回</button>
       <div className="detail-step">
-        <Link href={`/perfume/${prev.id}`} aria-label={`上一瓶：${prev.nameChinese}`}><Arrow back /></Link>
-        <span>{objectNo(p)}</span>
-        <Link href={`/perfume/${next.id}`} aria-label={`下一瓶：${next.nameChinese}`}><Arrow /></Link>
+        <Link href={`/perfume/${prev.id}`} aria-label={`上一款：${prev.nameChinese}`}><Arrow back /></Link>
+        <Link href={`/perfume/${next.id}`} aria-label={`下一款：${next.nameChinese}`}><Arrow /></Link>
       </div>
     </div>
     <DetailContent perfume={p} />
-    <nav className="exits" aria-labelledby="exits-title">
-      <div className="section-head" data-reveal=""><p className="eyebrow">下一站</p><h2 id="exits-title">继续下潜</h2><p className="section-lede">每一瓶的来路，都是另一瓶的去向。</p></div>
-      <ul className="exit-list">
-        {exits.map((e, i) => { const hint = hintFor(e.list); return <li key={e.label} data-reveal="" style={{ '--d': i }}>
-          <Link className="exit" href={e.href}>
-            <span className="exit-label">{e.label}</span>
-            <span className="exit-name">{e.name}</span>
-            <span className="exit-count">{fmt(e.list.length)} 件</span>
-            {hint && <span className="exit-thumb" aria-hidden="true"><Vitrine perfume={hint} size="thumb" sizes="96px" /></span>}
-            <Arrow />
-          </Link>
-        </li>; })}
-        <li data-reveal="" style={{ '--d': exits.length }}><button className="exit" onClick={() => navigate(`/perfume/${randomBottle(id).id}`)}>
-          <span className="exit-label">随机</span><span className="exit-name">再抽一瓶</span><span className="exit-count">{fmt(TOTAL)} 件之中</span><Arrow />
-        </button></li>
+    {sameBrand.length > 0 && <section className="related">
+      <div className="section-row"><h2 className="section-title">{p.brand} 的其他收藏</h2><Link className="text-link" href={`/brand/${brand.slug}`}>全部 {brand.items.length} 款<Arrow /></Link></div>
+      <Shelf items={sameBrand} limit={10} label={`${p.brand} 的其他收藏`} />
+    </section>}
+    <nav className="related-links" aria-label="相关">
+      <h2 className="section-title">相关</h2>
+      <ul>
+        {exits.map(e => <li key={e.label}><Link href={e.href}><span>{e.label}</span><span className="index-value">{e.name} · {fmt(e.list.length)} 款</span><Arrow /></Link></li>)}
+        <li><button onClick={() => navigate(`/perfume/${randomBottle(id).id}`)}><span>随机一款</span><span className="index-value">从 {fmt(TOTAL)} 款中</span><Arrow /></button></li>
       </ul>
     </nav>
   </div>;
 }
 function About() {
   return <div className="page about-page">
-    <PageHero eyebrow="关于" title="关于这份馆藏" ghost="i" />
-    <div className="prose" data-reveal="">
-      <p>这里保存了 {fmt(TOTAL)} 款香水，来自 {BRANDS.length} 个品牌。</p>
-      <p>每一项评分都是我的个人判断。馆藏按品牌、发行年份、香调与评分相互连接，可以精确检索，也可以随意漫游。</p>
-      <p>尚未确认的发行年份保留为“待核实”。香调与介绍沿用收藏资料中的文字。原始图片很小的馆藏，以原尺寸陈列，不做放大。</p>
-      <Link className="text-link" href="/archive">打开全部馆藏<Arrow /></Link>
+    <PageHero title="关于" />
+    <div className="prose">
+      <p>这里收录了 {fmt(TOTAL)} 款香水，来自 {BRANDS.length} 个品牌。</p>
+      <p>评分为个人主观评价（1–5 分）。香调与前中后调沿用原始收藏资料中的文字；发行年份无法确认的标为“待核实”。</p>
+      <p>部分香水只有很小的原始图片，按原尺寸显示，不做放大。</p>
+      <Link className="text-link" href="/archive">查看全部馆藏<Arrow /></Link>
     </div>
   </div>;
 }
-function NotFound() { return <div className="page notfound"><PageHero eyebrow="未收录" title="这一处馆藏尚未收录" ghost="404"><Link className="text-link" href="/archive">返回全部馆藏<Arrow /></Link></PageHero></div>; }
+function NotFound() { return <div className="page notfound"><PageHero title="页面不存在"><Link className="text-link" href="/archive">返回全部馆藏<Arrow /></Link></PageHero></div>; }
 
 // ------------------------------------------------------------------ app ----
-function useReveal(route, motion) {
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle('can-reveal', !motion.reduced);
-    if (motion.reduced) return;
-    const io = new IntersectionObserver(entries => { for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }, { rootMargin: '0px 0px -8% 0px' });
-    const scan = () => document.querySelectorAll('[data-reveal]:not(.is-in)').forEach(el => io.observe(el));
-    scan();
-    const mo = new MutationObserver(scan); mo.observe(document.getElementById('main'), { childList: true, subtree: true });
-    return () => { io.disconnect(); mo.disconnect(); };
-  }, [route, motion.reduced]);
-}
 const LEGACY_SPACE = { brands: '/brands', time: '/timeline', five: '/five-star' };
 export default function ArchiveApp() {
   const [location, setLocation] = useState(locationValue);
@@ -433,8 +387,8 @@ export default function ArchiveApp() {
   }, []);
   useLayoutEffect(() => { if (pendingScroll.current !== null) { const y = pendingScroll.current; pendingScroll.current = null; window.scrollTo({ top: y, behavior: 'instant' }); } }, [location]);
   useEffect(() => {
-    const title = route === '/archive' ? '全部馆藏' : route === '/brands' ? '品牌书架' : route === '/timeline' ? '时间长廊' : route === '/five-star' ? '五星馆藏室' : route === '/scents' ? '香调世界' : route === '/search' ? '馆藏检索' : route === '/about' ? '关于' : route.startsWith('/perfume/') ? byId(route.split('/')[2])?.nameChinese : route.startsWith('/brand/') ? BRAND_BY_SLUG.get(decodeURIComponent(route.split('/')[2]))?.name : null;
-    document.title = (title ? title + ' · ' : '') + '私藏香水世界 | Private Scent Library';
+    const title = route === '/archive' ? '全部馆藏' : route === '/brands' ? '品牌' : route === '/timeline' ? '年代' : route === '/five-star' ? '五星' : route === '/scents' ? '香调' : route === '/search' ? '检索' : route === '/about' ? '关于' : route.startsWith('/perfume/') ? byId(route.split('/')[2])?.nameChinese : route.startsWith('/brand/') ? BRAND_BY_SLUG.get(decodeURIComponent(route.split('/')[2]))?.name : null;
+    document.title = (title ? title + ' · ' : '') + '私藏香水世界';
   }, [route]);
   const navigate = (href, options = {}) => {
     if (href === locationValue()) return;
@@ -464,13 +418,12 @@ export default function ArchiveApp() {
     const bottle = space === 'five' && byId(params.get('bottle'));
     navigate(brand ? `/brand/${brand.slug}` : bottle ? `/perfume/${bottle.id}` : LEGACY_SPACE[space] || '/', { replace: true, transition: false });
   }, [space]);
-  useReveal(location, motion);
   let page;
   if (space) page = null;
   else if (route === '/' || route === '/explore') page = <Entrance />;
-  else if (['/archive', '/all', '/search'].includes(route)) page = <Archive params={params} path={route} search={route === '/search'} title={route === '/search' ? '馆藏检索' : '全部馆藏'} en={route === '/search' ? '馆藏检索' : '完整索引'} />;
+  else if (['/archive', '/all', '/search'].includes(route)) page = <Archive params={params} path={route} search={route === '/search'} title={route === '/search' ? '检索' : '全部馆藏'} />;
   else if (route === '/brands') page = <Brands params={params} />;
-  else if (route.startsWith('/brand/')) { const b = BRAND_BY_SLUG.get(decodeURIComponent(route.split('/')[2])); page = b ? <Archive params={params} path={route} baseItems={b.items} title={b.english || b.name} en="品牌书架" brand={b} /> : <NotFound />; }
+  else if (route.startsWith('/brand/')) { const b = BRAND_BY_SLUG.get(decodeURIComponent(route.split('/')[2])); page = b ? <Archive params={params} path={route} baseItems={b.items} title={b.name} brand={b} /> : <NotFound />; }
   else if (route === '/timeline') page = <Timeline params={params} />;
   else if (route === '/five-star') page = <FiveStar params={params} />;
   else if (route === '/scents') page = <Scents params={params} />;
@@ -485,7 +438,6 @@ export default function ArchiveApp() {
       <Header route={route} />
       <main id="main" key={route} className="main">{page}</main>
       <Footer />
-      <div className="grain" aria-hidden="true" />
     </div>
   </Router.Provider>;
 }

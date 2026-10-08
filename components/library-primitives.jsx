@@ -12,8 +12,8 @@ import { cutoutTracked, cutoutNow } from '../lib/cutout.js';
 //  2. runtime  — no cutout file (or it failed to load): the product photo's
 //                light studio backdrop is removed in a worker (lib/cutout.*).
 //                Tiny originals are cut at their native size, never enlarged.
-//  3. dissolve — the photo is not a clean studio shot: shown without any frame,
-//                its edges fading into the dark.
+//  3. photo    — the photo is not a clean studio shot (scene, props, white
+//                bottle on white): the original photograph, unprocessed.
 //  4. type     — no usable image at all (D class / missing): a typographic plate.
 // ---------------------------------------------------------------------------
 const QUARANTINED = new Set(quarantined.ids);
@@ -25,15 +25,10 @@ export const hasCutout = p => !!(p && worldCutouts[p.id] && !QUARANTINED.has(p.i
 export const cutoutSrc = p => `/thumbnails/${p.id}_world.webp`;
 export const objectNo = p => String(p.sourceOrder).padStart(4, '0');
 
-function initialOf(p) {
-  const en = (p.nameEnglish || '').replace(/^[^A-Za-z]+/, '');
-  return (en.charAt(0) || p.brand.charAt(0) || '·').toUpperCase();
-}
 export function TypePlate({ perfume: p, large = false }) {
   return <span className={`type-plate ${large ? 'is-large' : ''}`} aria-hidden="true">
-    <span className="type-initial">{initialOf(p)}</span>
     <span className="type-name">{p.nameChinese}</span>
-    <span className="type-no">编号 {objectNo(p)}</span>
+    <span className="type-no">暂无图片</span>
   </span>;
 }
 
@@ -84,18 +79,17 @@ export function Bottle({ perfume: p, size = 'card', eager = false, focusId = nul
   } else if (useWorld) {
     body = <img className="bottle-img bottle-image" src={cutoutSrc(p)} loading={eager ? 'eager' : 'lazy'} {...common} style={vt} onError={() => setWorldFailed(true)} />;
   } else if (!result) {
-    body = <span className="bottle-wait" aria-hidden="true" />;
+    body = null;
   } else if (result.ok) {
     const native = run.native ? { maxWidth: result.w + 'px', maxHeight: result.h + 'px' } : null;
     body = <img className={`bottle-img bottle-image ${run.native ? 'is-native' : ''}`} src={result.url} width={result.w} height={result.h} {...common} style={{ ...native, ...vt }} />;
   } else {
-    // not a clean studio shot: no frame, the photo melts into the dark
+    // not a clean studio shot (scene, prop, white-on-white): the original photo as it is
     const native = run.native ? { maxWidth: p.imageWidth + 'px', maxHeight: p.imageHeight + 'px' } : null;
-    body = <img className={`bottle-img bottle-dissolve bottle-image ${run.native ? 'is-native' : ''}`} src={run.src} width={p.imageWidth} height={p.imageHeight} {...common} style={{ ...native, ...vt }} onError={() => setBroken(true)} />;
+    body = <img className={`bottle-img bottle-photo bottle-image ${run.native ? 'is-native' : ''}`} src={run.src} width={p.imageWidth} height={p.imageHeight} {...common} style={{ ...native, ...vt }} onError={() => setBroken(true)} />;
   }
-  const typed = body.type === TypePlate;
-  return <span ref={ref} className={`bottle-frame size-${size} ${loaded || typed ? 'is-loaded' : ''} ${typed ? 'is-type' : ''} ${className}`} style={{ '--tone': toneFor(p) }}>
-    {!typed && <i className="frame-shadow" aria-hidden="true" />}
+  const typed = body?.type === TypePlate;
+  return <span ref={ref} className={`bottle-frame size-${size} ${loaded || typed ? 'is-loaded' : ''} ${typed ? 'is-type' : ''} ${className}`}>
     {body}
   </span>;
 }
@@ -104,9 +98,6 @@ export function Bottle({ perfume: p, size = 'card', eager = false, focusId = nul
 export const Vitrine = props => <Bottle {...props} />;
 export const FloatingBottle = props => <Bottle size="float" {...props} />;
 
-export function Rating({ value, label = true }) {
-  return <span className="rating" aria-label={`我的评分 ${value} / 5`}>
-    <span className="rating-dots" aria-hidden="true">{[1, 2, 3, 4, 5].map(n => <i key={n} className={n <= value ? 'on' : ''} />)}</span>
-    {label && <span className="rating-num" aria-hidden="true">{value}<small>/5</small></span>}
-  </span>;
+export function Rating({ value }) {
+  return <span className="rating" aria-label={`我的评分 ${value} / 5`}>{value}<span className="rating-of">/5</span></span>;
 }
