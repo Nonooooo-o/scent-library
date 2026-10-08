@@ -110,30 +110,31 @@ a,button,input,select{-webkit-tap-highlight-color:transparent;outline-offset:5px
 .is-home .site-footer{margin-top:0}
 
 /* ===================================================== image system ==== */
-.vitrine{position:relative;display:block;width:100%;height:100%;overflow:hidden;isolation:isolate;container-type:inline-size;border-radius:1px}
-/* product photo: white studio background becomes a lit ivory niche */
-.vitrine.is-photo{background:radial-gradient(ellipse 80% 70% at 50% 40%,var(--ivory-1) 0%,var(--ivory-2) 62%,var(--ivory-3) 100%)}
-.vitrine.is-photo::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 90% 80% at 50% 45%,transparent 50%,rgba(26,20,12,.38) 100%),linear-gradient(180deg,rgba(255,255,255,.12),transparent 30%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);transition:opacity .8s var(--ease)}
-.vitrine.is-photo::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:rgba(10,8,5,.14);transition:opacity .8s var(--ease)}
-.vitrine-img{width:100%;height:100%;object-fit:contain;padding:10%;mix-blend-mode:multiply;transition:transform 1.1s var(--ease)}
-/* tiny originals: native pixels on a small plate, never stretched */
-.vitrine.is-specimen{background:radial-gradient(ellipse 75% 65% at 50% 42%,rgba(var(--tone),.62) 0%,rgba(var(--tone),.22) 55%,#0d0c0a 100%),#0d0c0a;display:grid;place-items:center}
-.specimen-no{position:absolute;left:6%;bottom:-.12em;font-family:var(--serif);font-weight:300;font-size:36cqw;line-height:1;letter-spacing:-.04em;color:rgba(237,230,216,.07);pointer-events:none}
-.specimen-plate{position:relative;display:block;padding:10px 12px;background:var(--ivory-1);box-shadow:0 22px 40px -12px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08);isolation:isolate;max-width:76%;transition:transform 1.1s var(--ease)}
-.specimen-img{width:auto;height:auto;max-width:100%;mix-blend-mode:multiply;image-rendering:auto}
-.specimen-note{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-size:10px;letter-spacing:.3em;color:rgba(237,230,216,.4)}
-/* nothing usable: a typographic plate */
-.vitrine.is-type{background:linear-gradient(165deg,rgba(var(--tone),.42),rgba(var(--tone),.08) 55%,#0e0d0b),#0e0d0b;box-shadow:inset 0 0 0 1px var(--line)}
-.type-plate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12%;text-align:center}
+.bottle-frame{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;height:100%;container-type:size;isolation:isolate}
+/* every bottle is a real cutout standing in the dark — no panel, no edge */
+.bottle-img{position:relative;z-index:1;display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;object-position:50% 100%;user-select:none;-webkit-user-drag:none;opacity:0;transform:translateY(12px);transition:opacity 1s var(--ease),transform 1.1s var(--ease),filter .9s}
+.bottle-frame.is-loaded .bottle-img{opacity:1;transform:none}
+/* a photo that is not a clean studio shot melts into the dark instead of sitting in a box */
+.bottle-dissolve{align-self:flex-end;-webkit-mask-image:radial-gradient(ellipse 44% 52% at 50% 52%,#000 38%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.15) 80%,transparent 96%);mask-image:radial-gradient(ellipse 44% 52% at 50% 52%,#000 38%,rgba(0,0,0,.55) 62%,rgba(0,0,0,.15) 80%,transparent 96%);filter:brightness(.84) saturate(1.05)}
+/* while a bottle is being cut: a faint glowing silhouette */
+.bottle-wait{display:block;width:28%;height:58%;border-radius:38% 38% 10% 10%/18% 18% 6% 6%;background:radial-gradient(ellipse 60% 55% at 50% 40%,rgba(var(--tone),.28),rgba(var(--tone),.06) 60%,transparent 80%);animation:wait 1.6s ease-in-out infinite alternate}
+@keyframes wait{from{opacity:.35}to{opacity:.8}}
+.frame-shadow{position:absolute;left:50%;bottom:-4%;width:76%;height:9%;transform:translateX(-50%);background:radial-gradient(ellipse 36% 32% at center,rgba(0,0,0,.95),rgba(0,0,0,.55) 55%,transparent 100%),radial-gradient(ellipse at center,rgba(232,211,162,.14),rgba(var(--tone),.08) 40%,transparent 72%);opacity:0;transition:opacity 1.2s var(--ease),transform 1.1s var(--ease);pointer-events:none}
+.bottle-frame.is-loaded .frame-shadow{opacity:1}
+.size-float .frame-shadow,.size-stage .frame-shadow{display:none}
+.size-float{width:auto;display:block;container-type:normal}
+.size-float.is-type{aspect-ratio:3/4;container-type:size}
+.size-float .bottle-img{height:100%;max-width:none}
+/* nothing usable: a typographic plate, also without a box */
+.bottle-frame.is-type{align-items:center}
+.type-plate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12%;text-align:center;background:radial-gradient(ellipse 50% 42% at 50% 46%,rgba(var(--tone),.34),transparent 72%)}
 .type-initial{font-family:var(--serif);font-style:italic;font-weight:300;font-size:38cqw;line-height:.9;color:var(--gold-2);opacity:.85}
 .type-name{font-family:var(--serif-zh);font-size:max(13px,7cqw);letter-spacing:.16em;color:var(--ink);line-height:1.4}
 .type-no{font-size:10px;letter-spacing:.3em;color:var(--muted)}
 .type-plate.is-large .type-initial{font-size:30cqw}
 .type-plate.is-large .type-name{font-size:max(18px,4.4cqw)}
-/* transparent cutouts float in the dark */
-.cutout{display:block;height:100%;width:auto;max-width:none;user-select:none;-webkit-user-drag:none}
-.floating-fallback{display:block;height:100%;aspect-ratio:4/5}
-.floating-fallback .vitrine{box-shadow:0 30px 60px -20px rgba(0,0,0,.8)}
+.size-card .type-name,.size-thumb .type-name,.size-thumb .type-no{display:none}
+.size-thumb .type-initial{font-size:52cqw}
 /* light and shadow shared by every floating bottle */
 .bottle-light{position:absolute;left:50%;top:48%;width:170%;height:120%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(var(--tone,201,167,106),.5) 0%,rgba(var(--tone,201,167,106),.12) 36%,transparent 64%);pointer-events:none;z-index:-1}
 .bottle-shadow{position:absolute;left:50%;bottom:-9%;width:150%;height:16%;transform:translateX(-50%);background:radial-gradient(ellipse 34% 30% at center,rgba(0,0,0,.92) 0%,rgba(0,0,0,.6) 55%,transparent 100%),radial-gradient(ellipse at center,rgba(232,211,162,.17) 0%,rgba(var(--tone,201,167,106),.10) 38%,transparent 70%);pointer-events:none;z-index:-1}
@@ -158,11 +159,11 @@ a,button,input,select{-webkit-tap-highlight-color:transparent;outline-offset:5px
 .bottle.is-gone{visibility:hidden;pointer-events:none}
 .bottle-float{position:relative;display:block;height:100%;animation:float 9s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-1.37s);transition:opacity .7s var(--ease),filter .7s}
 .bottle .bottle-shadow{animation:float-shadow 9s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-1.37s)}
-.bottle .cutout,.bottle .floating-fallback{transition:transform .9s var(--ease),filter .9s}
+
 .bottle.is-near .bottle-float{filter:blur(3px) brightness(.8)}
 .bottle.behind .bottle-light{opacity:.6}
 .stage.has-focus .bottle:not(.is-focus) .bottle-float{opacity:.32}
-.bottle.is-focus .cutout,.bottle.is-focus .floating-fallback{transform:translateY(-10px) scale(1.04);filter:brightness(1.1)}
+.bottle.is-focus .bottle-img{transform:translateY(-10px) scale(1.04);filter:brightness(1.1)}
 .bottle:focus-visible .bottle-float{outline:1px solid var(--gold);outline-offset:14px}
 .stage-title{position:absolute;left:0;right:0;bottom:max(7svh,44px);z-index:20001;text-align:center;padding:0 var(--pad);pointer-events:none}
 .stage-title .eyebrow{margin-bottom:16px}
@@ -220,7 +221,7 @@ a,button,input,select{-webkit-tap-highlight-color:transparent;outline-offset:5px
 .passage-visual{position:sticky;top:18vh;height:min(64svh,620px)}
 .passage-bottle{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-end;padding-bottom:12%;opacity:0;transform:translateY(24px) scale(.97);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
 .passage-bottle.is-on{opacity:1;transform:none}
-.passage-bottle .cutout,.passage-bottle .floating-fallback{height:78%;position:relative}
+.passage-bottle .bottle-frame{height:78%;position:relative}
 .passage-bottle .bottle-shadow{bottom:8%;width:46%;height:7%}
 .passage-bottle .bottle-light{top:46%;width:110%;height:96%}
 .spotlight{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,5vw,80px);align-items:center;padding:clamp(60px,9vw,140px) var(--pad);max-width:1560px;margin:0 auto;border-top:1px solid var(--line)}
@@ -235,8 +236,8 @@ a,button,input,select{-webkit-tap-highlight-color:transparent;outline-offset:5px
 .spot-cone{position:absolute;left:50%;top:-12%;width:min(80%,560px);height:112%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(var(--tone),.0),rgba(232,211,162,.12) 25%,rgba(var(--tone),.12) 70%,transparent);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);transition:background 1.4s}
 .spotlight-stage::after{content:"";position:absolute;left:50%;bottom:7%;width:min(70%,460px);height:56px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(232,211,162,.14),transparent 70%)}
 .spot-object{position:relative;height:72%;display:block;animation:rise 1.1s var(--ease) both;z-index:1}
-.spot-object .cutout,.spot-object .floating-fallback{height:100%;transition:transform 1s var(--ease)}
-.spotlight-stage:hover .cutout{transform:translateY(-8px)}
+.spot-object .bottle-frame{height:100%}
+.spotlight-stage:hover .bottle-img{transform:translateY(-8px)}
 .spot-object .bottle-shadow{bottom:-5%}
 .closing{padding:clamp(90px,12vw,180px) var(--pad);text-align:center;border-top:1px solid var(--line);position:relative;overflow:hidden}
 .closing h2{font-family:var(--serif-zh);font-size:clamp(24px,3vw,42px);letter-spacing:.2em;line-height:1.5}
@@ -282,11 +283,10 @@ select option{background:#14120f;color:var(--ink)}
 /* cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:64px 30px}
 .card a{display:block}
-.card-media{position:relative;display:block;aspect-ratio:4/5;box-shadow:0 30px 50px -30px rgba(0,0,0,.9)}
-.card-no{position:absolute;left:12px;top:10px;z-index:3;font-family:var(--serif);font-size:13px;letter-spacing:.06em;color:rgba(40,32,20,.55);pointer-events:none}
-.card-media .is-specimen+.card-no,.card-media .is-type+.card-no{color:rgba(237,230,216,.4)}
-.card.is-five .card-media{box-shadow:0 0 0 1px rgba(201,167,106,.55),0 30px 50px -30px rgba(0,0,0,.9)}
-.card.is-five .card-media::after{content:"5/5";position:absolute;right:10px;top:9px;z-index:3;font-family:var(--serif);font-size:13px;color:var(--gold-3)}
+.card-media{position:relative;display:block;aspect-ratio:4/5;padding:13% 12% 15%}
+.card-media::before{content:"";position:absolute;left:8%;right:8%;top:0;height:78%;background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(232,211,162,.09),transparent 72%);opacity:.6;transition:opacity .9s var(--ease);pointer-events:none}
+.card-no{position:absolute;left:0;top:0;z-index:3;font-family:var(--serif);font-size:13px;letter-spacing:.06em;color:var(--faint);pointer-events:none;transition:color .6s}
+.card.is-five .card-media::after{content:"5/5";position:absolute;right:0;top:0;z-index:3;font-family:var(--serif);font-size:13px;color:var(--gold)}
 .card-caption{position:relative;display:flex;flex-direction:column;gap:4px;padding:20px 0 18px}
 .card-caption::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transition:background .6s}
 .card-caption::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease);z-index:1}
@@ -294,9 +294,10 @@ select option{background:#14120f;color:var(--ink)}
 .card-name{font-family:var(--serif-zh);font-size:19px;letter-spacing:.06em;line-height:1.4;color:var(--ink)}
 .card-en{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.3;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-family:var(--serif);font-size:16px;color:var(--ink-2)}
-.card a:hover .vitrine-img{transform:translateY(-5px) scale(1.03)}
-.card a:hover .vitrine.is-photo::before{opacity:0}
-.card a:hover .specimen-plate{transform:translateY(-4px)}
+.card a:hover .bottle-frame.is-loaded .bottle-img{transform:translateY(-8px)}
+.card a:hover .frame-shadow{transform:translateX(-50%) scale(.86)}
+.card a:hover .card-media::before{opacity:1}
+.card a:hover .card-no{color:var(--gold)}
 .card a:hover .card-caption::before{transform:scaleX(1)}
 .card a:hover .card-name{color:var(--gold-2)}
 .card-name{transition:color .5s}
@@ -342,7 +343,7 @@ select option{background:#14120f;color:var(--ink)}
 .brand-facts dd{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.2vw,46px);line-height:1.2;color:var(--gold-2)}
 .brand-facts dd small{font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:var(--muted);margin-left:6px}
 .brand-hero-bottle{position:absolute!important;right:4%;bottom:10%;height:min(78%,360px);--tone:inherit}
-.brand-hero-bottle .cutout,.brand-hero-bottle .floating-fallback{height:100%;position:relative;animation:float 9s ease-in-out infinite alternate}
+.brand-hero-bottle .bottle-frame{height:100%;position:relative;animation:float 9s ease-in-out infinite alternate}
 .brand-hero-bottle .bottle-shadow{bottom:-6%}
 
 /* brand index */
@@ -363,7 +364,7 @@ select option{background:#14120f;color:var(--ink)}
 .brand-row:hover .brand-row-count{color:var(--gold)}
 .brand-peek{position:fixed;left:0;top:0;z-index:30000;display:flex;align-items:flex-end;gap:8px;pointer-events:none;opacity:0;transition:opacity .4s;flex-wrap:wrap;width:330px}
 .brand-peek.is-on{opacity:1}
-.brand-peek .vitrine{width:104px;height:130px;box-shadow:0 20px 40px -10px rgba(0,0,0,.9)}
+.brand-peek .bottle-frame{width:104px;height:130px;filter:drop-shadow(0 16px 20px rgba(0,0,0,.8))}
 .brand-peek-label{width:100%;font-size:11px;letter-spacing:.2em;color:var(--gold-2);text-shadow:0 1px 10px #000}
 
 /* timeline */
@@ -422,14 +423,9 @@ select option{background:#14120f;color:var(--ink)}
 .chamber-cone{position:absolute;left:50%;top:-6%;width:min(92%,640px);height:100%;transform:translateX(-50%);z-index:-1;background:linear-gradient(180deg,rgba(232,211,162,.16),rgba(232,211,162,.04) 60%,transparent);clip-path:polygon(40% 0,60% 0,100% 100%,0 100%)}
 .chamber-no{position:absolute;left:50%;top:50%;transform:translate(calc(-50% + var(--mx)*24px),calc(-50% + var(--my)*16px));z-index:-1;font-family:var(--serif);font-weight:300;font-size:clamp(150px,22vw,360px);line-height:1;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(201,167,106,.2);pointer-events:none;white-space:nowrap}
 .chamber-object{position:relative;width:100%;display:flex;justify-content:center;align-items:center;transform:translate(calc(var(--mx)*-14px),calc(var(--my)*-10px));transition:transform 1.2s var(--ease)}
-.has-cutout .chamber-object{height:min(64svh,560px);animation:breathe 10s ease-in-out infinite alternate}
-.chamber-object .cutout{height:100%;width:auto;max-width:100%;object-fit:contain}
+.chamber-object{height:min(64svh,560px);animation:breathe 10s ease-in-out infinite alternate}
+.chamber-object .bottle-frame{height:100%}
 .chamber-object .bottle-shadow{bottom:-5%;width:60%}
-.chamber-object .floating-fallback{height:100%}
-.vitrine-stage{width:min(100%,520px);height:auto;aspect-ratio:4/5;max-height:calc(100svh - var(--header) - 90px);box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.04)}
-.vitrine-stage.is-photo .vitrine-img{padding:7%}
-.vitrine-stage.is-photo::before{background:rgba(10,8,5,.06)}
-.vitrine-stage .specimen-plate{padding:14px 16px}
 .chamber-copy{padding:clamp(12px,6vh,90px) 0 40px}
 .chamber-index{font-family:var(--serif);font-size:16px;color:var(--gold);margin-bottom:26px}
 .chamber-index span{color:var(--muted)}
@@ -470,9 +466,6 @@ select option{background:#14120f;color:var(--ink)}
 .exit>.icon{grid-column:5;color:var(--gold);transition:transform .5s var(--ease)}
 .exit:hover>.icon{transform:translateX(5px)}
 
-.vitrine-card .type-name,.vitrine-thumb .type-name,.vitrine-thumb .type-no,.vitrine-thumb .specimen-no{display:none}
-.vitrine-thumb .type-initial{font-size:52cqw}
-.vitrine-thumb .specimen-plate{padding:4px;max-width:70%}
 .about-page .prose{max-width:40em;display:flex;flex-direction:column;gap:20px;font-size:17px;letter-spacing:.06em;line-height:2;color:var(--ink-2)}
 
 /* ============================================================= motion == */
@@ -518,8 +511,7 @@ select option{background:#14120f;color:var(--ink)}
   .spotlight-stage{height:min(62svh,560px);order:-1}
   .chamber{grid-template-columns:1fr}
   .chamber-stage{position:relative;top:0;height:min(68svh,620px);min-height:380px}
-  .has-cutout .chamber-object{height:min(52svh,460px)}
-  .vitrine-stage{width:min(78%,440px);max-height:60svh}
+  .chamber-object{height:min(52svh,460px)}
   .chamber-copy{padding-top:12px}
   .timeline{grid-template-columns:1fr}
   .timeline-axis{position:sticky;top:var(--header);z-index:30;margin:0 calc(var(--pad)*-1);padding:8px var(--pad);background:rgba(8,7,6,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -570,7 +562,7 @@ select option{background:#14120f;color:var(--ink)}
   .five-mark{font-size:clamp(150px,46vw,240px);top:auto;bottom:-.04em;opacity:.45}
   .detail-page{padding-top:calc(var(--header) + 8px)}
   .chamber-stage{height:min(60svh,520px);min-height:340px;margin:0 calc(var(--pad)*-1)}
-  .has-cutout .chamber-object{height:min(46svh,400px)}
+  .chamber-object{height:min(46svh,400px)}
   .chamber-no{font-size:44vw}
   .chamber-facts{gap:16px 40px}
   /* entrance on phones */
@@ -596,7 +588,7 @@ select option{background:#14120f;color:var(--ink)}
   .site-footer{padding:56px var(--pad) 40px;margin-top:80px}
 }
 @media (hover:none){
-  .bottle.is-focus .cutout{transform:none;filter:none}
+  .bottle.is-focus .bottle-img{transform:none;filter:none}
   .stage.has-focus .bottle:not(.is-focus) .bottle-float{opacity:1}
   .plaque{display:none}
 }

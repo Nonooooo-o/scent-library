@@ -4,7 +4,7 @@ import { flushSync } from 'react-dom';
 import { PERFUMES, BY_ID, FIVE_STAR, BRANDS, BRAND_BY_SLUG, BRAND_BY_NAME, YEARS, SCENTS, DECADES, selectPerfumes, paginate, archiveUrl, randomBottle } from '../lib/library-model.mjs';
 import { Router, Link, Arrow, SearchIcon } from '../lib/navigation';
 import { useMotionProfile } from '../lib/motion.mjs';
-import { Vitrine, FloatingBottle, Rating, hasCutout, hasPhoto, objectNo, toneFor } from './library-primitives';
+import { Vitrine, FloatingBottle, Rating, hasCutout, hasPhoto, isTiny, objectNo, toneFor } from './library-primitives';
 import { Entrance } from './world-scenes';
 export { Vitrine as PerfumeImage } from './library-primitives';
 
@@ -114,7 +114,8 @@ function ViewToggle({ value, onChange }) { return <div className="view-toggle" r
 function BrandHero({ brand }) {
   const years = brand.items.map(p => p.releaseYear).filter(Boolean);
   const five = brand.items.filter(p => p.personalRating === 5).length;
-  const lead = [...brand.items].filter(p => hasCutout(p) && hasPhoto(p)).sort((a, b) => b.personalRating - a.personalRating)[0];
+  const ranked = [...brand.items].sort((a, b) => b.personalRating - a.personalRating);
+  const lead = ranked.find(p => hasCutout(p) && hasPhoto(p)) || ranked.find(hasPhoto) || ranked.find(isTiny);
   const display = brand.english || brand.name;
   return <header className="page-hero brand-hero" style={{ '--tone': toneFor(lead || brand.items[0]) }}>
     <span className={`brand-ghost ${display.length > 14 ? 'is-long' : ''}`} aria-hidden="true">{display}</span>
@@ -308,13 +309,12 @@ export function DetailContent({ perfume: p }) {
     const move = e => { x = e.clientX / innerWidth - .5; y = e.clientY / innerHeight - .5; if (!frame) frame = requestAnimationFrame(() => { frame = 0; el.style.setProperty('--mx', x.toFixed(3)); el.style.setProperty('--my', y.toFixed(3)); }); };
     window.addEventListener('pointermove', move, { passive: true }); return () => { window.removeEventListener('pointermove', move); cancelAnimationFrame(frame); };
   }, []);
-  const cutout = hasCutout(p) && hasPhoto(p);
   return <section className="chamber" style={{ '--tone': toneFor(p) }} aria-label={`${p.brand} ${p.nameChinese}`}>
-    <div className={`chamber-stage ${cutout ? 'has-cutout' : ''}`} ref={stage}>
+    <div className="chamber-stage" ref={stage}>
       <span className="chamber-cone" aria-hidden="true" />
       <span className="chamber-no" aria-hidden="true">{objectNo(p)}</span>
       <div className="chamber-object">
-        {cutout ? <><i className="bottle-shadow" aria-hidden="true" /><FloatingBottle perfume={p} eager focusId={focusId} shared className="chamber-cutout" /></> : <Vitrine perfume={p} size="stage" eager focusId={focusId} shared />}
+        <i className="bottle-shadow" aria-hidden="true" /><Vitrine perfume={p} size="stage" eager focusId={focusId} shared />
       </div>
     </div>
     <div className="chamber-copy">

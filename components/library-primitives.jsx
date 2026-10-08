@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import imageClasses from '../data/image-classes.json';
 import worldCutouts from '../data/world-cutouts.json';
 import quarantined from '../data/world-cutouts-quarantined.json';
 import tones from '../data/bottle-tones.json';
+import { cutoutTracked, cutoutNow } from '../lib/cutout.js';
 
 // ---------------------------------------------------------------------------
-// One canonical image system for every surface.
+// One image system for every surface: a bottle standing in the dark.
 //
-//  photo     — product photo (card 600px / hero up to ~1200px). Shown inside an
-//              ivory "vitrine" panel; the photo is multiplied onto the panel so
-//              its white background becomes the lit niche.
-//  specimen  — the ~330 records that only have a tiny source (often 135px tall).
-//              Never enlarged: the image keeps its native pixel size on a small
-//              ivory plate inside a colour field derived from the bottle.
-//  type      — missing / unusable image (D class, 404, decode error): a purely
-//              typographic plate. Never a broken-image icon.
-//  cutout    — transparent /thumbnails/{id}_world.webp, used where bottles
-//              float in the dark (entrance, detail stage). Falls back to photo.
+//  1. world    — /thumbnails/{id}_world.webp, the prepared transparent cutout.
+//  2. runtime  — no cutout file (or it failed to load): the product photo's
+//                light studio backdrop is removed in a worker (lib/cutout.*).
+//                Tiny originals are cut at their native size, never enlarged.
+//  3. dissolve — the photo is not a clean studio shot: shown without any frame,
+//                its edges fading into the dark.
+//  4. type     — no usable image at all (D class / missing): a typographic plate.
 // ---------------------------------------------------------------------------
 const QUARANTINED = new Set(quarantined.ids);
 export const imageClassFor = p => imageClasses[p?.id] || (p?.imageHero ? 'B' : 'C');
@@ -27,14 +25,10 @@ export const hasCutout = p => !!(p && worldCutouts[p.id] && !QUARANTINED.has(p.i
 export const cutoutSrc = p => `/thumbnails/${p.id}_world.webp`;
 export const objectNo = p => String(p.sourceOrder).padStart(4, '0');
 
-const photoSrcSet = p => p.imageHero ? `${p.image} 600w, ${p.imageHero} 1200w` : undefined;
-const vtName = (p, focusId, enabled) => enabled && focusId === p.id ? { viewTransitionName: 'selected-bottle' } : undefined;
-
 function initialOf(p) {
   const en = (p.nameEnglish || '').replace(/^[^A-Za-z]+/, '');
   return (en.charAt(0) || p.brand.charAt(0) || '·').toUpperCase();
 }
-
 export function TypePlate({ perfume: p, large = false }) {
   return <span className={`type-plate ${large ? 'is-large' : ''}`} aria-hidden="true">
     <span className="type-initial">{initialOf(p)}</span>
@@ -43,43 +37,72 @@ export function TypePlate({ perfume: p, large = false }) {
   </span>;
 }
 
-// Small card / thumbnail / large detail vitrine. `size`: 'card' | 'thumb' | 'stage'
-export function Vitrine({ perfume: p, size = 'card', eager = false, sizes, focusId = null, shared = false }) {
-  const [failed, setFailed] = useState(false);
-  const kind = failed ? 'type' : hasPhoto(p) ? 'photo' : isTiny(p) ? 'specimen' : 'type';
+// Which photo to cut, and at what working size, for each display size.
+function runtimeSource(p, size) {
+  if (isTiny(p)) return { src: p.image, max: 4000, native: true };
+  if (!hasPhoto(p)) return null;
+  if (size === 'stage') return { src: p.imageHero, max: 1100 };
+  if (size === 'float') return { src: p.imageHero, max: 800 };
+  if (size === 'thumb') return { src: p.image, max: 360 };
+  return { src: p.image, max: 640 };
+}
+
+// Start work only when the bottle is near the viewport (eager ones at once).
+function useNearViewport(ref, eager) {
+  const [near, setNear] = useState(eager);
+  useEffect(() => {
+    if (near || !ref.current) return;
+    if (typeof IntersectionObserver === 'undefined') { setNear(true); return; }
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { setNear(true); io.disconnect(); } }, { rootMargin: '480px 240px' });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [near]);
+  return near;
+}
+
+export function Bottle({ perfume: p, size = 'card', eager = false, focusId = null, shared = false, className = '' }) {
+  const ref = useRef(null);
+  const run = runtimeSource(p, size);
+  const [worldFailed, setWorldFailed] = useState(false);
+  const useWorld = hasCutout(p) && !worldFailed;
+  const [result, setResult] = useState(() => (!hasCutout(p) && run && cutoutNow(run.src, run.max)) || null);
+  const [loaded, setLoaded] = useState(false);
+  const [broken, setBroken] = useState(false);
+  const near = useNearViewport(ref, eager);
+  useEffect(() => {
+    if (useWorld || !run || result || !near) return;
+    let live = true;
+    cutoutTracked(run.src, run.max).then(r => { if (live) setResult(r); });
+    return () => { live = false; };
+  }, [useWorld, near, run?.src]);
   const alt = `${p.brand} ${p.nameChinese}`;
-  const tone = { '--tone': toneFor(p) };
-  if (kind === 'photo') {
-    const stage = size === 'stage';
-    return <span className={`vitrine vitrine-${size} is-photo`} style={tone}>
-      <img className="vitrine-img bottle-image" data-perfume-id={p.id} src={stage ? p.imageHero : p.image}
-        srcSet={stage ? undefined : photoSrcSet(p)} sizes={stage ? undefined : (sizes || '(max-width: 700px) 46vw, (max-width: 1200px) 30vw, 300px')}
-        width={stage ? undefined : p.imageWidth} height={stage ? undefined : p.imageHeight}
-        alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={vtName(p, focusId, shared)} onError={() => setFailed(true)} />
-    </span>;
+  const vt = shared && focusId === p.id ? { viewTransitionName: 'selected-bottle' } : undefined;
+  const common = { 'data-perfume-id': p.id, alt, decoding: 'async', draggable: false, onLoad: () => setLoaded(true) };
+  let body;
+  if ((!run && !useWorld) || broken || result?.missing) {
+    body = <TypePlate perfume={p} large={size === 'stage'} />;
+  } else if (useWorld) {
+    body = <img className="bottle-img bottle-image" src={cutoutSrc(p)} loading={eager ? 'eager' : 'lazy'} {...common} style={vt} onError={() => setWorldFailed(true)} />;
+  } else if (!result) {
+    body = <span className="bottle-wait" aria-hidden="true" />;
+  } else if (result.ok) {
+    const native = run.native ? { maxWidth: result.w + 'px', maxHeight: result.h + 'px' } : null;
+    body = <img className={`bottle-img bottle-image ${run.native ? 'is-native' : ''}`} src={result.url} width={result.w} height={result.h} {...common} style={{ ...native, ...vt }} />;
+  } else {
+    // not a clean studio shot: no frame, the photo melts into the dark
+    const native = run.native ? { maxWidth: p.imageWidth + 'px', maxHeight: p.imageHeight + 'px' } : null;
+    body = <img className={`bottle-img bottle-dissolve bottle-image ${run.native ? 'is-native' : ''}`} src={run.src} width={p.imageWidth} height={p.imageHeight} {...common} style={{ ...native, ...vt }} onError={() => setBroken(true)} />;
   }
-  if (kind === 'specimen') {
-    return <span className={`vitrine vitrine-${size} is-specimen`} style={tone}>
-      <span className="specimen-no" aria-hidden="true">{objectNo(p)}</span>
-      <span className="specimen-plate">
-        <img className="specimen-img bottle-image" data-perfume-id={p.id} src={p.image} width={p.imageWidth} height={p.imageHeight}
-          alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={vtName(p, focusId, shared)} onError={() => setFailed(true)} />
-      </span>
-      {size === 'stage' && <span className="specimen-note" aria-hidden="true">原始小图 · 不放大</span>}
-    </span>;
-  }
-  return <span className={`vitrine vitrine-${size} is-type`} style={tone} role="img" aria-label={alt}>
-    <TypePlate perfume={p} large={size === 'stage'} />
+  const typed = body.type === TypePlate;
+  return <span ref={ref} className={`bottle-frame size-${size} ${loaded || typed ? 'is-loaded' : ''} ${typed ? 'is-type' : ''} ${className}`} style={{ '--tone': toneFor(p) }}>
+    {!typed && <i className="frame-shadow" aria-hidden="true" />}
+    {body}
   </span>;
 }
 
-// A bottle that floats in the dark: transparent cutout, else the vitrine.
-export function FloatingBottle({ perfume: p, eager = false, focusId = null, shared = false, className = '' }) {
-  const [failed, setFailed] = useState(false);
-  if (!hasCutout(p) || failed) return <span className={`floating-fallback ${className}`}><Vitrine perfume={p} size="float" eager={eager} focusId={focusId} shared={shared} /></span>;
-  return <img className={`cutout bottle-image ${className}`} data-perfume-id={p.id} src={cutoutSrc(p)} alt={`${p.brand} ${p.nameChinese}`}
-    loading={eager ? 'eager' : 'lazy'} decoding="async" draggable="false" style={vtName(p, focusId, shared)} onError={() => setFailed(true)} />;
-}
+// Kept names used across the pages.
+export const Vitrine = props => <Bottle {...props} />;
+export const FloatingBottle = props => <Bottle size="float" {...props} />;
 
 export function Rating({ value, label = true }) {
   return <span className="rating" aria-label={`我的评分 ${value} / 5`}>
