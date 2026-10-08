@@ -1,0 +1,821 @@
+{
+  "records": 1612,
+  "brands": 219,
+  "ratingsPreserved": 1612,
+  "imageSourceMatches": 1612,
+  "randomCrossPageImageChecks": [
+    {
+      "id": "p1128",
+      "image": "/thumbnails/p1128_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1609",
+      "image": "/thumbnails/p1609_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0183",
+      "image": "/thumbnails/p0183_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0041",
+      "image": "/thumbnails/p0041_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0983",
+      "image": "/thumbnails/p0983_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0590",
+      "image": "/thumbnails/p0590_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1003",
+      "image": "/thumbnails/p1003_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0854",
+      "image": "/thumbnails/p0854.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0676",
+      "image": "/thumbnails/p0676_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0944",
+      "image": "/thumbnails/p0944_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1053",
+      "image": "/thumbnails/p1053_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0447",
+      "image": "/thumbnails/p0447_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0954",
+      "image": "/thumbnails/p0954_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0499",
+      "image": "/thumbnails/p0499_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0872",
+      "image": "/thumbnails/p0872.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0241",
+      "image": "/thumbnails/p0241_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0620",
+      "image": "/thumbnails/p0620.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1169",
+      "image": "/thumbnails/p1169_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1040",
+      "image": "/thumbnails/p1040_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0178",
+      "image": "/thumbnails/p0178_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0349",
+      "image": "/thumbnails/p0349_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0353",
+      "image": "/thumbnails/p0353_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1330",
+      "image": "/thumbnails/p1330_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1595",
+      "image": "/thumbnails/p1595_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0972",
+      "image": "/thumbnails/p0972.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1253",
+      "image": "/thumbnails/p1253_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0561",
+      "image": "/thumbnails/p0561_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1546",
+      "image": "/thumbnails/p1546_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0645",
+      "image": "/thumbnails/p0645_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1451",
+      "image": "/thumbnails/p1451_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0031",
+      "image": "/thumbnails/p0031_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0420",
+      "image": "/thumbnails/p0420_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0613",
+      "image": "/thumbnails/p0613_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1025",
+      "image": "/thumbnails/p1025_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1357",
+      "image": "/thumbnails/p1357_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1047",
+      "image": "/thumbnails/p1047.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0115",
+      "image": "/thumbnails/p0115_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1466",
+      "image": "/thumbnails/p1466_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0450",
+      "image": "/thumbnails/p0450_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0109",
+      "image": "/thumbnails/p0109_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0527",
+      "image": "/thumbnails/p0527_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0223",
+      "image": "/thumbnails/p0223_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0104",
+      "image": "/thumbnails/p0104_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0338",
+      "image": "/thumbnails/p0338_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0946",
+      "image": "/thumbnails/p0946_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1000",
+      "image": "/thumbnails/p1000_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0507",
+      "image": "/thumbnails/p0507_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1603",
+      "image": "/thumbnails/p1603_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1310",
+      "image": "/thumbnails/p1310_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1562",
+      "image": "/thumbnails/p1562.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1482",
+      "image": "/thumbnails/p1482_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0330",
+      "image": "/thumbnails/p0330_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0057",
+      "image": "/thumbnails/p0057_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0350",
+      "image": "/thumbnails/p0350_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1064",
+      "image": "/thumbnails/p1064_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1563",
+      "image": "/thumbnails/p1563_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0660",
+      "image": "/thumbnails/p0660_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0140",
+      "image": "/thumbnails/p0140_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0158",
+      "image": "/thumbnails/p0158_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0213",
+      "image": "/thumbnails/p0213_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0259",
+      "image": "/thumbnails/p0259_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1015",
+      "image": "/thumbnails/p1015_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0868",
+      "image": "/thumbnails/p0868_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1496",
+      "image": "/thumbnails/p1496_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0107",
+      "image": "/thumbnails/p0107_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0247",
+      "image": "/thumbnails/p0247_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0831",
+      "image": "/thumbnails/p0831.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0996",
+      "image": "/thumbnails/p0996_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1474",
+      "image": "/thumbnails/p1474.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0078",
+      "image": "/thumbnails/p0078_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1435",
+      "image": "/thumbnails/p1435_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0952",
+      "image": "/thumbnails/p0952_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1088",
+      "image": "/thumbnails/p1088_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1379",
+      "image": "/thumbnails/p1379_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0991",
+      "image": "/thumbnails/p0991_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0821",
+      "image": "/thumbnails/p0821.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0305",
+      "image": "/thumbnails/p0305_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0054",
+      "image": "/thumbnails/p0054.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1565",
+      "image": "/thumbnails/p1565_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1219",
+      "image": "/thumbnails/p1219.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1225",
+      "image": "/thumbnails/p1225.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0150",
+      "image": "/thumbnails/p0150_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1350",
+      "image": "/thumbnails/p1350_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1578",
+      "image": "/thumbnails/p1578_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0014",
+      "image": "/thumbnails/p0014.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1468",
+      "image": "/thumbnails/p1468_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0370",
+      "image": "/thumbnails/p0370_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0652",
+      "image": "/thumbnails/p0652_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0911",
+      "image": "/thumbnails/p0911_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0406",
+      "image": "/thumbnails/p0406_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0770",
+      "image": "/thumbnails/p0770.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0029",
+      "image": "/thumbnails/p0029_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1115",
+      "image": "/thumbnails/p1115_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1081",
+      "image": "/thumbnails/p1081.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0122",
+      "image": "/thumbnails/p0122_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0112",
+      "image": "/thumbnails/p0112_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0825",
+      "image": "/thumbnails/p0825.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0659",
+      "image": "/thumbnails/p0659_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p1368",
+      "image": "/thumbnails/p1368.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    },
+    {
+      "id": "p0619",
+      "image": "/thumbnails/p0619_card.webp",
+      "archive": true,
+      "brand": true,
+      "detail": true,
+      "shelf": true
+    }
+  ],
+  "archive": {
+    "pageSize": 24,
+    "pages": 68,
+    "lastPage": 4
+  },
+  "fiveStar": 127,
+  "timeline": 1572,
+  "unknownYear": 40,
+  "filtersAndSorting": "PASS",
+  "serverRenderedRoutes": "PASS",
+  "browserQA": "BLOCKED: cloud browser URL security policy",
+  "viewportQA": "Not visually tested; responsive CSS reviewed",
+  "safariQA": "Not available"
+}

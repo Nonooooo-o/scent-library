@@ -1,0 +1,15 @@
+{
+  "heroRealImages": 28,
+  "mobileRealImages": 12,
+  "lowPerformanceRealImages": 18,
+  "projectionChecks": 9216,
+  "renderedWorldChecks": 352,
+  "all219Brands": "PASS",
+  "all126FiveStarSelections": "PASS",
+  "all17TimeLayersReachable": "PASS",
+  "imageMappings": "PASS",
+  "archiveAndOtherPagesUnchanged": "DEGRADED (no git repo in this environment)",
+  "datasetsRatingsAndImagesUnchanged": "DEGRADED (no git repo in this environment)",
+  "browserAndVisualQA": "BLOCKED by existing browser URL security policy; not executed",
+  "realDeviceFrameRate": "Not measured"
+}

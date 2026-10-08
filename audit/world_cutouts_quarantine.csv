@@ -1,0 +1,17 @@
+id,class,reason,detail
+p0134,A,halo_fringe,obj=88.8% edge_white=0.43 src=master
+p0137,C,over_erased(batch-metric-bug),'obj_pct'
+p0462,C,halo_fringe,obj=43.6% edge_white=0.45 src=single
+p0536,C,over_erased(batch-metric-bug),'obj_pct'
+p0643,C,rectangle_remnant,obj=98.7% edge_white=0.00 src=single
+p0984,C,halo_fringe,obj=50.0% edge_white=0.38 src=single
+p1032,C,over_erased,obj=5.8% edge_white=0.00 src=single
+p1408,C,rectangle_remnant,obj=100.0% edge_white=0.00 src=single
+p1475,C,over_erased,obj=10.4% edge_white=0.00 src=single
+p1481,C,halo_fringe,obj=48.5% edge_white=0.49 src=single
+p1491,C,over_erased,obj=10.7% edge_white=0.00 src=single
+p1502,C,over_erased(batch-metric-bug),'obj_pct'
+p1504,C,rectangle_remnant,obj=100.0% edge_white=0.00 src=single
+p1612,C,over_erased,obj=3.3% edge_white=0.00 src=single
+p0420,B,lifestyle-prop-hand,"hand holding bottle + rose in all sources; no clean alternative; excluded from world, product images untouched"
+p0027,A,packaging-only,"yellow Acqua di Parma tube, no bottle visible; excluded from world, product images untouched"

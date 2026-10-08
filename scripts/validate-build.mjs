@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const root=path.resolve('dist/client');
+const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+assert(html.includes('私藏香水世界'));
+for(const match of html.matchAll(/(?:src|href)="(\/[^"#?]+)"/g))assert(fs.existsSync(path.join(root,match[1])),match[1]);
+const records=JSON.parse(fs.readFileSync('data/collection.json'));
+for(const p of records)assert(fs.statSync(path.join(root,p.image)).size>0);
+assert.equal(records.length,1612);
+assert.equal(JSON.parse(fs.readFileSync('.openai/hosting.json')).project_id,'appgprj_6a550979e6988191b204202f62e1c80d');
+assert.equal(fs.readFileSync(path.join(root,'_redirects'),'utf8').trim(),'/* /index.html 200');
+console.log(JSON.stringify({entry:'PASS',assets:1612,deepRouteFallback:'PASS',projectScope:'perfume site only'}));

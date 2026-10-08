@@ -1,0 +1,1233 @@
+You are now entering the REFINEMENT PHASE of my existing website:
+
+PRIVATE SCENT LIBRARY
+私藏香水世界
+
+Current deployed site:
+https://quiet-scent-archive-rebuilt-2026.nono258.chatgpt.site/
+
+IMPORTANT:
+
+Do NOT restart the project from scratch.
+
+Do NOT redesign everything again.
+
+The current dark immersive entrance with:
+
+- the giant “1612”
+- floating real perfume bottles
+- spatial movement
+- Brands
+- Timeline
+- 5★ collection
+- Random Bottle
+
+is finally moving in the right direction.
+
+Keep that core concept.
+
+This phase is about making the existing concept feel truly finished, artistic, coherent, high-quality, and production-ready.
+
+The current build has four major problems:
+
+1. image quality is inconsistent and often unacceptable
+2. the immersive entrance still sometimes feels like PNG stickers placed on a background
+3. inner pages / perfume detail pages do not match the quality of the entrance
+4. the experience loses continuity when moving from Explore into deeper pages
+
+Fix these problems precisely.
+
+==================================================
+0. ABSOLUTE PROJECT SAFETY RULE
+==================================================
+
+Only modify:
+
+PRIVATE SCENT LIBRARY
+私藏香水世界
+
+Do NOT modify:
+
+晨间档案
+
+If the two projects currently share:
+
+CSS
+components
+layouts
+design tokens
+routes
+utilities
+
+and changing them would alter 晨间档案,
+
+split or duplicate the required implementation for Private Scent Library instead.
+
+At the end, confirm that 晨间档案 was not changed.
+
+==================================================
+1. DO NOT DESTROY WHAT IS ALREADY WORKING
+==================================================
+
+Keep the current overall concept of:
+
+dark immersive entrance
+giant 1612
+floating perfume collection
+rabbit-hole exploration
+Brands
+Timeline
+5★ Room
+Random Bottle
+Archive
+
+Do NOT return to:
+
+white editorial homepage
+traditional catalogue homepage
+rows of perfume bottles
+museum index
+luxury e-commerce
+generic portfolio
+standard hero + sections
+
+The current homepage concept is worth refining.
+
+Do not replace it with another completely unrelated visual direction.
+
+==================================================
+2. THE MAIN GOAL OF THIS PASS
+==================================================
+
+This pass is NOT about adding lots of new features.
+
+It is about:
+
+IMAGE QUALITY
+SPATIAL QUALITY
+DETAIL PAGE QUALITY
+WORLD CONTINUITY
+MOTION QUALITY
+POLISH
+
+The final website should feel like:
+
+an immersive private scent universe
+
+not:
+
+a prototype
+a collage
+a template
+a PPT
+a database with animation
+
+==================================================
+3. IMAGE QUALITY IS NOW THE HIGHEST PRIORITY
+==================================================
+
+The current perfume image system is not acceptable.
+
+Many current assets appear to be:
+
+low-resolution
+blurry
+thumbnail-sized
+screenshots
+heavily compressed
+over-sharpened
+haloed
+poorly cut out
+or otherwise unsuitable for large presentation
+
+“Image mapping preserved” is NOT enough.
+
+A technically valid image URL can still be visually unacceptable.
+
+You must audit the ACTUAL QUALITY of all 1,612 perfume images.
+
+==================================================
+4. AUDIT ALL 1,612 PERFUMES
+==================================================
+
+For every perfume image, inspect and record:
+
+perfume ID
+brand
+exact English perfume name
+Chinese perfume name
+release year if available
+current image path
+source type
+pixel width
+pixel height
+aspect ratio
+file size
+whether it is duplicated
+whether it is currently being upscaled
+whether it is suitable for Archive
+whether it is suitable for Explore
+whether it is suitable for Detail hero use
+
+Classify every perfume image into:
+
+A — HERO READY
+high-resolution and clean enough for large display
+
+B — GOOD
+acceptable for cards and medium display, possibly detail use depending on size
+
+C — THUMBNAIL ONLY
+usable only at small size, replacement needed
+
+D — UNUSABLE / INCORRECT
+blurry, damaged, wrong, duplicated incorrectly, screenshot-like, or otherwise unacceptable
+
+Do this for ALL 1,612 records.
+
+Do not only fix the examples that are currently visually obvious.
+
+==================================================
+5. SOURCE FILES ARE NOT AUTOMATICALLY TRUSTED
+==================================================
+
+The original uploaded Word and Excel files remain important source material.
+
+However:
+
+do NOT assume that every embedded image is high enough quality.
+
+For every C or D asset:
+
+first re-check the original Word / Excel embedded image.
+
+If the original embedded image is genuinely higher-quality:
+
+extract it again properly from the source file.
+
+Do NOT extract a screenshot of the rendered document page.
+
+Do NOT use a preview screenshot.
+
+Do NOT use an already-downscaled copy when a better embedded source exists.
+
+==================================================
+6. IF THE ORIGINAL IMAGE IS STILL BAD, SEARCH FOR A BETTER ONE
+==================================================
+
+If the original Word / Excel asset is still too small, blurry, compressed, damaged,
+or otherwise unsuitable for hero display:
+
+actively search the web for a better image.
+
+Search using:
+
+BRAND
++
+EXACT ENGLISH PERFUME NAME
++
+RELEASE YEAR when useful
+
+Example:
+
+"Amouage Jubilation XXV Man 2007"
+
+Do not rely only on Chinese names.
+
+==================================================
+7. ONLINE IMAGE SOURCE PRIORITY
+==================================================
+
+When replacing an image from online sources, use this priority order:
+
+1. official perfume brand website
+2. official brand press / media / CDN resources
+3. reputable major retailers with clean product photography
+4. established perfume reference websites when better sources are unavailable
+
+Avoid:
+
+Pinterest reposts
+random blogs
+marketplace seller images
+social media screenshots
+unknown image hosts
+watermarked images
+AI-generated recreations
+image-search thumbnails
+screenshots of websites
+
+==================================================
+8. VERIFY EXACT PRODUCT IDENTITY BEFORE REPLACING
+==================================================
+
+Do not replace an image just because the bottle looks similar.
+
+Verify:
+
+brand
+exact English name
+edition
+gender where applicable
+concentration where applicable
+release year or generation
+bottle design
+flanker status
+
+Do NOT accidentally substitute:
+
+EDT for EDP
+EDP for Extrait
+Man for Woman
+Intense for Original
+limited edition for standard edition
+new bottle design for an older generation
+another perfume from the same collection
+
+If exact identity cannot be verified:
+
+DO NOT GUESS.
+
+Keep the existing image temporarily
+and flag that perfume for manual review.
+
+Correct identity is more important than forcing 100% automatic replacement.
+
+==================================================
+9. IMAGE QUALITY TARGET
+==================================================
+
+For hero use, prefer:
+
+at least approximately 1200px on the long edge
+
+when realistically available.
+
+Prefer:
+
+high-resolution product photography
+clean bottle edges
+accurate bottle color
+correct aspect ratio
+no watermark
+no interface elements
+no text overlays
+no severe JPEG artifacts
+
+Transparent PNG is excellent when available.
+
+Clean white or neutral-background product photography is also acceptable.
+
+Do not reject a correct, excellent product image simply because the background is white.
+
+==================================================
+10. DO NOT USE UPSCALING AS THE PRIMARY SOLUTION
+==================================================
+
+Do NOT take a:
+
+200px
+300px
+400px
+
+blurry thumbnail,
+
+AI upscale it to 1600px,
+
+and declare the problem solved.
+
+If a genuine higher-resolution source exists:
+
+use the genuine source.
+
+Upscaling is only acceptable as a last-resort enhancement when no better verified source exists.
+
+If used, record that fact in the asset metadata.
+
+==================================================
+11. CREATE ONE CANONICAL IMAGE SYSTEM
+==================================================
+
+Every perfume must have ONE canonical master image record.
+
+Conceptually:
+
+perfume.id
+perfume.image.master
+perfume.image.thumb
+perfume.image.card
+perfume.image.medium
+perfume.image.hero
+
+All visual surfaces must reference the same canonical perfume image system.
+
+Archive
+Explore
+Brands
+Timeline
+5★
+Search
+Detail
+
+must NOT independently search for or choose different images.
+
+One perfume identity
+→ one canonical master
+→ multiple derived sizes.
+
+==================================================
+12. DO NOT HOTLINK PRODUCTION IMAGES
+==================================================
+
+If a valid replacement is found online:
+
+download the source image into the project’s own asset system.
+
+Do not make the production site depend on random external image URLs.
+
+Store provenance separately:
+
+source URL
+source domain
+date retrieved
+original pixel dimensions
+replacement reason
+
+The website should serve its own optimized asset.
+
+==================================================
+13. GENERATE PROPER DERIVATIVES
+==================================================
+
+From the canonical master, generate optimized display versions.
+
+For example:
+
+thumb
+card
+medium
+hero
+
+Use modern formats when appropriate.
+
+Do not use the same enormous image everywhere.
+
+But also:
+
+do not use a small card image as a hero.
+
+The correct image size must be selected for the context.
+
+==================================================
+14. PRESERVE IMAGE ASPECT RATIO
+==================================================
+
+Perfume bottles must always remain visually correct.
+
+Use:
+
+object-fit: contain
+
+when appropriate.
+
+Do not:
+
+stretch
+squash
+crop caps
+crop bottle bottoms
+distort proportions
+
+The entire bottle should normally remain visible.
+
+==================================================
+15. FIX THE IMMERSIVE ENTRANCE COMPOSITION
+==================================================
+
+The current dark entrance + giant 1612 is directionally correct.
+
+KEEP IT.
+
+But refine it.
+
+Right now, the bottles can still feel like:
+
+PNG stickers placed around large typography.
+
+I want intentional spatial composition.
+
+Build three clear depth layers:
+
+FOREGROUND
+MIDGROUND
+BACKGROUND
+
+Foreground:
+
+larger objects
+stronger movement
+some controlled viewport cropping
+stronger parallax
+occasional depth-of-field softness
+
+Midground:
+
+main interactive perfumes
+best readability
+primary focus objects
+
+Background:
+
+smaller
+slower
+lower contrast
+atmospheric
+supporting depth
+
+Do not simply randomize:
+
+x
+y
+rotation
+scale
+
+Compose the visual scene intentionally.
+
+==================================================
+16. MAKE 1612 PART OF THE WORLD
+==================================================
+
+The giant “1612” should not behave like a flat text layer behind perfume PNGs.
+
+It should exist within the spatial composition.
+
+Use layering / masking / depth so that:
+
+some perfumes appear in front of the numerals
+some appear behind the numerals
+
+The user should perceive depth.
+
+Scrolling can gradually:
+
+reveal
+mask
+separate
+recompose
+or partially dissolve
+
+the typography.
+
+The same principle can be used more subtly for:
+
+私藏香水世界
+PRIVATE SCENT LIBRARY
+
+Typography should behave like environmental architecture.
+
+Not a normal page heading.
+
+==================================================
+17. AVOID VISUAL CHAOS
+==================================================
+
+Do not solve “more immersive” by adding more objects.
+
+Composition matters more than quantity.
+
+The entrance currently uses around 28 bottles.
+
+That is enough.
+
+Focus on:
+
+depth
+scale
+spacing
+lighting
+movement
+timing
+hierarchy
+
+Not object count.
+
+==================================================
+18. BRANDS MUST FEEL LIKE A TRANSFORMATION OF THE SAME WORLD
+==================================================
+
+When entering Brands:
+
+do not abruptly leave the immersive universe and load a normal catalogue page.
+
+The current perfume field should transform.
+
+For example:
+
+bottles begin regrouping
+clusters form
+brand identities emerge
+non-selected objects recede
+selected brand cluster approaches
+
+Brand labels can become environmental typography.
+
+Only after selecting a specific brand should the interface become more informational.
+
+Even then, preserve visual continuity.
+
+==================================================
+19. TIMELINE MUST FEEL LIKE ANOTHER DIMENSION OF THE SAME WORLD
+==================================================
+
+Timeline should not feel like a normal timeline component.
+
+The same collection space should stretch into chronological depth.
+
+Years can act as spatial markers.
+
+For example:
+
+1792
+1916
+1950
+1980
+2000
+2010
+2020
+
+Perfumes should reorganize around chronological position.
+
+Scrolling should feel like moving THROUGH time.
+
+Not scrolling past stacked year sections.
+
+==================================================
+20. THE 5★ ROOM MUST FEEL LIKE A PRIVATE SECRET CHAMBER
+==================================================
+
+My 5★ perfumes are not simply:
+
+rating = 5
+
+They are the most personal part of the collection.
+
+Entering 5★ should visibly alter the atmosphere.
+
+For example:
+
+motion becomes slower
+lighting becomes more focused
+space becomes more generous
+fewer objects remain visible
+bottles become larger
+background becomes deeper
+sound, if any, remains optional and OFF by default
+
+The user should feel:
+
+“I entered the most private room of this collection.”
+
+==================================================
+21. DETAIL PAGES CURRENTLY FAIL VISUALLY
+==================================================
+
+The existing perfume detail pages must be redesigned.
+
+Current problems include:
+
+blurry oversized images
+low-resolution assets enlarged dramatically
+poster-like collage
+multiple competing bottle cutouts
+PPT-like composition
+visual noise
+weak hierarchy
+poor continuity with Explore
+
+Delete this detail-page visual direction.
+
+Do not patch it.
+
+Rebuild the DETAIL EXPERIENCE.
+
+==================================================
+22. DETAIL PAGE CONCEPT: OBJECT CHAMBER
+==================================================
+
+A perfume detail page should feel like:
+
+entering a private chamber dedicated to one object.
+
+The emotional idea is:
+
+COLLECTION WORLD
+↓
+SELECT ONE PERFUME
+↓
+THE WORLD CLEARS AWAY
+↓
+ONE OBJECT REMAINS
+↓
+YOU CAN STUDY IT
+
+Call this concept internally:
+
+OBJECT CHAMBER
+
+Do not necessarily display that phrase to the user.
+
+==================================================
+23. DETAIL HERO
+==================================================
+
+The hero should contain:
+
+ONE primary perfume bottle.
+
+Not five.
+
+Not a background collage.
+
+Not multiple giant duplicates.
+
+The bottle should be:
+
+clear
+high-resolution
+well-scaled
+properly lit by the composition
+surrounded by controlled negative space
+
+The atmosphere may use a color derived from the bottle.
+
+For example:
+
+soft ambient gradient
+blurred reflected color
+subtle glow
+very soft atmospheric light
+
+But the background must never compete with the object.
+
+==================================================
+24. NO MORE BLURRY POSTER BACKGROUNDS
+==================================================
+
+STRICTLY DO NOT use:
+
+giant low-resolution bottle images as background
+blurred enlarged screenshots
+random perfume collage wallpaper
+multiple copies of the same bottle
+cheesy halo effects
+aggressive sharpening
+PPT-style overlapping objects
+
+This is an absolute rejection of the current visual failure.
+
+==================================================
+25. DETAIL TYPOGRAPHY
+==================================================
+
+Use a strong hierarchy.
+
+Possible structure:
+
+BRAND
+
+中文名称
+
+English Name
+
+YEAR
+
+MY RATING
+
+SCENT / ACCORDS if genuinely available
+
+DESCRIPTION
+
+Do not format everything as:
+
+Label: Value
+Label: Value
+Label: Value
+
+Avoid database-admin aesthetics.
+
+Use:
+
+scale
+spacing
+alignment
+typographic contrast
+subtle rules when necessary
+
+to create hierarchy.
+
+==================================================
+26. DETAIL PAGE SHOULD STILL FEEL ALIVE
+==================================================
+
+The detail page should be calmer than Explore,
+but not dead.
+
+Use subtle:
+
+parallax
+image breathing
+ambient background movement
+type reveal
+pointer response
+shared-element movement
+
+Motion should be extremely restrained.
+
+The perfume itself remains the visual hero.
+
+==================================================
+27. CREATE A CONTINUOUS TRANSITION INTO DETAIL
+==================================================
+
+Clicking a perfume from Explore should not feel like:
+
+click
+white flash
+new unrelated page
+
+Instead:
+
+selected bottle remains visually continuous
+other bottles recede
+camera / composition focuses on the selected perfume
+selected object enlarges
+detail information appears
+
+Use:
+
+View Transitions API
+shared-element animation
+Framer Motion layout transition
+or equivalent stable technique
+
+Do not fake continuity with an unrelated fade only.
+
+==================================================
+28. DETAIL PAGE EXITS SHOULD CONTINUE THE RABBIT HOLE
+==================================================
+
+The bottom of the Detail experience should not immediately become:
+
+two rows of generic recommendation cards.
+
+Instead create elegant routes deeper into the collection.
+
+Examples:
+
+SAME BRAND
+SAME YEAR
+SAME RATING
+RELATED SCENT
+RANDOM NEXT
+
+These should feel like exits from one chamber into another part of the collection.
+
+The visitor should always feel invited to continue.
+
+==================================================
+29. ARCHIVE SHOULD REMAIN FUNCTIONAL
+==================================================
+
+Do NOT destroy the practical Archive.
+
+Keep:
+
+1,612 total perfumes
+24 per page
+68 pages
+search
+brand filter
+year filter
+rating filter
+scent filter when supported
+sorting
+pagination
+mobile 2-column layout
+
+Archive can remain more restrained and light.
+
+It is the precision tool.
+
+Explore is the world.
+
+This contrast is intentional.
+
+==================================================
+30. DATA MUST NOT CHANGE
+==================================================
+
+Preserve all 1,612 perfume records.
+
+Do not alter my:
+
+personal ratings
+Chinese names
+English names
+release years
+descriptions
+
+Do not use web research to silently overwrite my collection metadata.
+
+Web research in this phase is for IMAGE IDENTIFICATION / IMAGE QUALITY.
+
+Not for rewriting my database.
+
+==================================================
+31. DO NOT INVENT DATA
+==================================================
+
+If:
+
+year is unknown
+scent is uncertain
+edition is uncertain
+
+do not guess.
+
+Do not “improve” data using AI assumptions.
+
+Use the original collection data as authoritative unless I explicitly request a data-correction project later.
+
+==================================================
+32. MOBILE MUST BE DESIGNED, NOT SHRUNK
+==================================================
+
+For Mobile:
+
+do not simply scale down the desktop immersive scene.
+
+Use fewer objects.
+
+For example:
+
+8–12 visible perfumes
+instead of 28.
+
+Use:
+
+2.5D layering
+touch drag
+simplified parallax
+lighter effects
+reduced shader / blur cost
+
+The mobile experience should still feel intentional.
+
+Support:
+
+375px
+390px
+430px
+
+==================================================
+33. PERFORMANCE
+==================================================
+
+Do not render all 1,612 perfumes in the immersive scene.
+
+Explore should use only a curated active subset.
+
+Archive remains DOM / paginated.
+
+Use:
+
+lazy loading
+responsive image sizes
+GPU-friendly transforms
+opacity
+transform-based animation
+intersection observers
+asset preloading only where justified
+
+Avoid unnecessary layout thrashing.
+
+==================================================
+34. REDUCED MOTION
+==================================================
+
+Respect:
+
+prefers-reduced-motion
+
+When reduced motion is enabled:
+
+remove major camera movement
+reduce parallax
+disable long transitions
+keep all navigation and content fully usable
+
+The visual composition should still look excellent while static.
+
+==================================================
+35. MANUAL VISUAL QA
+==================================================
+
+Do not rely only on automated checks.
+
+Manually inspect the actual rendered experience.
+
+At minimum inspect:
+
+homepage / entrance
+Brands transition
+Timeline transition
+5★ Room
+Random Bottle
+Archive
+Search
+at least 20 perfume detail pages
+
+Choose detail pages from different brands, years, bottle shapes and image-quality categories.
+
+==================================================
+36. IMAGE QA MUST BE VISUAL, NOT ONLY TECHNICAL
+==================================================
+
+Do not say an image “passed” merely because:
+
+HTTP 200
+file exists
+URL resolves
+mapping is correct
+
+A visually blurry image is still a failure.
+
+A 250px image stretched to 1000px is still a failure.
+
+A wrong perfume bottle with perfect resolution is still a failure.
+
+Image QA means:
+
+correct identity
+sufficient resolution
+good visual quality
+correct display context
+
+==================================================
+37. SPECIAL ATTENTION TO CURRENT FAILURE CASES
+==================================================
+
+Revisit the currently problematic perfume pages where:
+
+large low-resolution bottles
+haloed bottle edges
+blown-up thumbnails
+messy overlapping collage
+
+are already visible.
+
+Use those pages as regression tests.
+
+They must look substantially better after this pass.
+
+==================================================
+38. DO NOT OVER-PROCESS PRODUCT IMAGES
+==================================================
+
+Do not automatically apply:
+
+extreme sharpening
+edge enhancement
+fake HDR
+aggressive contrast
+fake lighting
+AI repainting
+
+to product photography.
+
+The bottle should remain faithful to the original photographed object.
+
+The website design should create the atmosphere.
+
+Do not destroy the asset trying to manufacture atmosphere inside the image.
+
+==================================================
+39. SUCCESS CRITERIA — ENTRANCE
+==================================================
+
+The entrance should no longer feel like:
+
+PNG stickers around a giant number.
+
+It should feel like:
+
+a deliberately composed spatial artwork.
+
+There must be:
+
+foreground
+midground
+background
+depth
+hierarchy
+controlled movement
+intentional composition
+
+==================================================
+40. SUCCESS CRITERIA — DETAIL
+==================================================
+
+A detail page should no longer feel like:
+
+a PPT
+a collage
+a blown-up thumbnail
+a product database page
+
+It should feel like:
+
+a private exhibition chamber for one perfume.
+
+One object.
+One atmosphere.
+One identity.
+
+==================================================
+41. SUCCESS CRITERIA — WORLD CONTINUITY
+==================================================
+
+The user should feel a continuous journey:
+
+PRIVATE SCENT UNIVERSE
+↓
+DISCOVERY
+↓
+BRAND / TIME / 5★
+↓
+ONE PERFUME
+↓
+OBJECT CHAMBER
+↓
+ANOTHER PATH
+↓
+DEEPER INTO THE COLLECTION
+
+The user should NOT feel:
+
+homepage template
+↓
+different template
+↓
+database page
+↓
+recommendation grid
+
+==================================================
+42. FINAL IMAGE QUALITY REPORT
+==================================================
+
+When finished, report real numbers.
+
+Use this exact structure:
+
+Total perfume records: 1,612
+
+A — Hero Ready:
+B — Good:
+C — Thumbnail Only:
+D — Unusable:
+
+Re-extracted from original source files:
+Replaced using verified higher-quality online sources:
+Retained original assets:
+Still requiring manual review:
+
+Do not simply say:
+
+“image mapping passed.”
+
+I need an actual quality audit.
+
+==================================================
+43. FINAL DELIVERY REPORT
+==================================================
+
+At the end, report only:
+
+1. deployed URL
+
+2. what was refined in the immersive entrance
+
+3. how Brands / Timeline / 5★ now maintain world continuity
+
+4. how the perfume Detail / Object Chamber was redesigned
+
+5. image quality audit numbers
+
+6. how many images were actually replaced
+
+7. how many images still require manual review
+
+8. mobile changes
+
+9. performance / reduced-motion changes
+
+10. confirmation that all 1,612 data records and ratings remain intact
+
+11. confirmation that 晨间档案 was not modified
+
+==================================================
+44. WORKING METHOD
+==================================================
+
+Do not begin by giving me a long written design proposal.
+
+Inspect the current implementation.
+
+Audit the assets.
+
+Fix the image system.
+
+Refine the spatial composition.
+
+Rebuild Detail pages.
+
+Test continuity.
+
+Perform visual QA.
+
+Fix regressions.
+
+Deploy.
+
+Then report the result.
+
+==================================================
+FINAL DIRECTIVE
+==================================================
+
+This is a refinement pass.
+
+Do not throw away the current immersive concept.
+
+Do not merely add more effects.
+
+Do not claim success because the code builds.
+
+The goal is:
+
+BETTER ART DIRECTION
++
+BETTER IMAGE ASSETS
++
+BETTER SPATIAL COMPOSITION
++
+BETTER DETAIL PAGES
++
+ONE COHERENT PRIVATE SCENT UNIVERSE.
+
+The finished experience should feel like entering deeper and deeper into one person's private scent rabbit hole.
+
+Not browsing a collection website.
+
+Refine it until that distinction is obvious.

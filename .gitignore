@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.next/
+public/thumbnails/
+public/perfumes/
+*.log
+.DS_Store
+.qa/

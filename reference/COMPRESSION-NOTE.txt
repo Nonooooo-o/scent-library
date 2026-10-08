@@ -1,0 +1,6 @@
+This handoff package was compacted to stay below 25 MB.
+- Exact duplicate Word/Excel copies were omitted.
+- One Word and one Excel reference file are included.
+- Embedded PNG images and current public/perfumes PNG assets were palette-compressed while preserving dimensions and file paths.
+- No perfume records, source-code files, routes, or data JSON files were intentionally removed.
+- For image-quality replacement work, treat these existing images as references only and search/extract higher-quality canonical assets per the refinement brief.

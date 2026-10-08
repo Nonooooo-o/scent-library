@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-labelledby="title description">
+  <title id="title">香水瓶占位图</title>
+  <desc id="description">统一瓶身轮廓占位图</desc>
+  <rect width="720" height="720" fill="#ffffff"/>
+  <path d="M298 178h124v52l25 36v274c0 13-11 24-24 24H297c-13 0-24-11-24-24V266l25-36v-52Z" fill="none" stroke="#b8b8bd" stroke-width="3"/>
+  <path d="M298 230h124M273 420h174" fill="none" stroke="#d7d7da" stroke-width="2"/>
+</svg>
