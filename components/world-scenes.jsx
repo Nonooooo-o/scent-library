@@ -17,10 +17,10 @@ const CAST = (() => {
 })();
 const pickFloating = (list, fallback) => list.find(floats) || fallback;
 const PASSAGES = [
-  { href: '/brands', no: '01', title: '品牌', en: 'Houses', figure: nf.format(BRANDS.length), unit: '个品牌', line: '按品牌排列的书架，从一个名字走进它的全部馆藏。', bottle: BY_ID.get('p0182') },
-  { href: '/timeline', no: '02', title: '年代', en: 'Chronology', figure: `${FIRST_YEAR}—${LAST_YEAR}`, unit: '', line: `沿着发行年份穿过 ${LAST_YEAR - FIRST_YEAR} 年，一个年代一个年代地走。`, bottle: pickFloating([...PERFUMES].filter(p => p.releaseYear).sort((a, b) => a.releaseYear - b.releaseYear), BY_ID.get('p0035')) },
-  { href: '/scents', no: '03', title: '香调', en: 'Accords', figure: String(SCENTS.length), unit: '种香调', line: '从一种气味出发，找到与它同行的另一种。', bottle: BY_ID.get('p0954') },
-  { href: '/five-star', no: '04', title: '五星', en: 'Five stars', figure: String(FIVE_STAR.length), unit: '瓶', line: '我给出满分的那些，留在最里面的房间。', bottle: pickFloating(FIVE_STAR, BY_ID.get('p0849')) },
+  { href: '/brands', no: '01', title: '品牌', figure: nf.format(BRANDS.length), unit: '个品牌', line: '按品牌排列的书架，从一个名字走进它的全部馆藏。', bottle: BY_ID.get('p0182') },
+  { href: '/timeline', no: '02', title: '年代', figure: `${FIRST_YEAR}—${LAST_YEAR}`, unit: '', line: `沿着发行年份穿过 ${LAST_YEAR - FIRST_YEAR} 年，一个年代一个年代地走。`, bottle: pickFloating([...PERFUMES].filter(p => p.releaseYear).sort((a, b) => a.releaseYear - b.releaseYear), BY_ID.get('p0035')) },
+  { href: '/scents', no: '03', title: '香调', figure: String(SCENTS.length), unit: '种香调', line: '从一种气味出发，找到与它同行的另一种。', bottle: BY_ID.get('p0954') },
+  { href: '/five-star', no: '04', title: '五星', figure: String(FIVE_STAR.length), unit: '瓶', line: '我给出满分的那些，留在最里面的房间。', bottle: pickFloating(FIVE_STAR, BY_ID.get('p0849')) },
 ];
 // Chapter captions that appear while the camera travels: [start, end] in scroll progress.
 const CHAPTERS = [
@@ -142,7 +142,7 @@ export function Entrance() {
           {cast.map((p, i) => <Bottle key={p.id} perfume={p} slot={slots[i]} index={i} eager={i < 10} focused={focus?.id === p.id} onFocus={setFocus} onOpen={open} register={n => { nodes.current[i] = n; }} />)}
         </div>
         <div className="stage-title" ref={title}>
-          <p className="eyebrow">Private Scent Library</p>
+          <p className="eyebrow">私人香水馆藏</p>
           <h1>私藏香水世界</h1>
           <p className="stage-sub">一个人的 {nf.format(TOTAL)} 瓶香水，{BRANDS.length} 个品牌，全部真实收藏。</p>
           <button className="scroll-cue" onClick={enter} data-reveal-skip=""><span>向下，走进去</span><i aria-hidden="true" /></button>
@@ -154,7 +154,7 @@ export function Entrance() {
         </div>)}
         <div className={`plaque ${focus ? 'is-on' : ''}`} aria-hidden="true">
           {focus && <>
-            <span className="plaque-no">No. {objectNo(focus)}</span>
+            <span className="plaque-no">馆藏编号 {objectNo(focus)}</span>
             <span className="plaque-brand">{focus.brand}</span>
             <strong className="plaque-name">{focus.nameChinese}</strong>
             <span className="plaque-en" lang="en">{focus.nameEnglish}</span>
@@ -167,7 +167,7 @@ export function Entrance() {
     <Passages />
     <Spotlight motion={motion} />
     <section className="closing" data-reveal="">
-      <p className="eyebrow">The complete index</p>
+      <p className="eyebrow">全部馆藏</p>
       <h2><span className="closing-num">{nf.format(TOTAL)}</span> 件馆藏，一件不少。</h2>
       <p>按品牌、年份、评分与香调精确检索，每页 24 件。</p>
       <div className="closing-actions"><Link className="button-gold" href="/archive">打开全部馆藏<Arrow /></Link><Link className="text-link" href="/search">直接检索<Arrow /></Link></div>
@@ -179,7 +179,7 @@ function Passages() {
   const [hover, setHover] = useState(0);
   return <section className="passages" id="passages" aria-labelledby="passages-title">
     <div className="section-head" data-reveal="">
-      <p className="eyebrow">Four passages</p>
+      <p className="eyebrow">从这里出发</p>
       <h2 id="passages-title">四条小径</h2>
       <p className="section-lede">同一间屋子，四种走法。</p>
     </div>
@@ -188,7 +188,7 @@ function Passages() {
         {PASSAGES.map((x, i) => <li key={x.href} data-reveal="" style={{ '--d': i }}>
           <Link href={x.href} className={`passage ${hover === i ? 'is-on' : ''}`} onMouseEnter={() => setHover(i)} onFocus={() => setHover(i)}>
             <span className="passage-no">{x.no}</span>
-            <span className="passage-title"><strong>{x.title}</strong><em lang="en">{x.en}</em></span>
+            <span className="passage-title"><strong>{x.title}</strong></span>
             <span className="passage-figure">{x.figure}<small>{x.unit}</small></span>
             <span className="passage-line">{x.line}</span>
             <Arrow />
@@ -213,7 +213,7 @@ function Spotlight({ motion }) {
   const draw = () => { let next = p; while (next.id === p.id && DRAW_POOL.length > 1) next = DRAW_POOL[Math.floor(Math.random() * DRAW_POOL.length)]; setP(next); setN(n + 1); };
   return <section className="spotlight" style={{ '--tone': toneFor(p) }} aria-labelledby="spotlight-title" ref={ref}>
     <div className="spotlight-copy" data-reveal="">
-      <p className="eyebrow">A bottle, at random</p>
+      <p className="eyebrow">随机</p>
       <h2 id="spotlight-title">闭上眼，抽一瓶</h2>
       <div className="spotlight-card" key={n}>
         <p className="spotlight-brand">{p.brand}</p>

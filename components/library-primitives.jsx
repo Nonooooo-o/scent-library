@@ -39,7 +39,7 @@ export function TypePlate({ perfume: p, large = false }) {
   return <span className={`type-plate ${large ? 'is-large' : ''}`} aria-hidden="true">
     <span className="type-initial">{initialOf(p)}</span>
     <span className="type-name">{p.nameChinese}</span>
-    <span className="type-no">No. {objectNo(p)}</span>
+    <span className="type-no">编号 {objectNo(p)}</span>
   </span>;
 }
 
